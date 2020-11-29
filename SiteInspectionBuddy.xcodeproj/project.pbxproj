@@ -22,6 +22,9 @@
 		9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */; };
 		9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */; };
 		9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */; };
+		9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD2E257395D40084CC35 /* ProjectsList.swift */; };
+		9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD3325739A880084CC35 /* ProjectDetails.swift */; };
+		9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C75CD2E257395D40084CC35 /* ProjectsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsList.swift; sourceTree = "<group>"; };
+		9C75CD3325739A880084CC35 /* ProjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetails.swift; sourceTree = "<group>"; };
+		9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Variants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,9 @@
 				9C75CCE025734F350084CC35 /* Info.plist */,
 				9C75CCD525734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld */,
 				9C75CCDA25734F350084CC35 /* Preview Content */,
+				9C75CD2E257395D40084CC35 /* ProjectsList.swift */,
+				9C75CD3325739A880084CC35 /* ProjectDetails.swift */,
+				9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -291,12 +300,15 @@
 				9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */,
 				9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */,
 				9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */,
+				9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */,
+				9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */,
 				9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */,
 				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
 				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
 				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,
+				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
