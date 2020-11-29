@@ -16,6 +16,12 @@
 		9C75CCDF25734F350084CC35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C75CCDD25734F350084CC35 /* LaunchScreen.storyboard */; };
 		9C75CCEA25734F350084CC35 /* SiteInspectionBuddyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCE925734F350084CC35 /* SiteInspectionBuddyTests.swift */; };
 		9C75CCF525734F350084CC35 /* SiteInspectionBuddyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCF425734F350084CC35 /* SiteInspectionBuddyUITests.swift */; };
+		9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD17257371200084CC35 /* Issue+CoreDataClass.swift */; };
+		9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */; };
+		9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */; };
+		9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */; };
+		9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */; };
+		9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,12 @@
 		9C75CCF025734F350084CC35 /* SiteInspectionBuddyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SiteInspectionBuddyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75CCF425734F350084CC35 /* SiteInspectionBuddyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteInspectionBuddyUITests.swift; sourceTree = "<group>"; };
 		9C75CCF625734F350084CC35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C75CD17257371200084CC35 /* Issue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +93,12 @@
 		9C75CCC325734F330084CC35 = {
 			isa = PBXGroup;
 			children = (
+				9C75CD17257371200084CC35 /* Issue+CoreDataClass.swift */,
+				9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */,
+				9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */,
+				9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */,
+				9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */,
+				9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */,
 				9C75CCCE25734F330084CC35 /* SiteInspectionBuddy */,
 				9C75CCE825734F350084CC35 /* SiteInspectionBuddyTests */,
 				9C75CCF325734F350084CC35 /* SiteInspectionBuddyUITests */,
@@ -270,8 +288,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */,
+				9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */,
+				9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */,
 				9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */,
+				9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */,
+				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
+				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
+				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
