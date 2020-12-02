@@ -25,7 +25,7 @@ struct ProjectDetails: View {
         List {
             Section {
                 NavigationLink(
-                    destination: ProjectInfo(),
+                    destination: ProjectInfo(project: project),
                     tag: EDIT_PROJECT_INFO,
                     selection: $selectedListItem
                 ) {

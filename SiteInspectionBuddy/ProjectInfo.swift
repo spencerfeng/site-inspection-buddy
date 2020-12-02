@@ -8,13 +8,45 @@
 import SwiftUI
 
 struct ProjectInfo: View {
+    var project: Project
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @State var title = ""
+    @State var client = ""
+    
     var body: some View {
-        Text("Project info")
+        Form {
+            Section(header: Text("Title")) {
+                TextField("Title", text: $title)
+                    .onAppear {
+                        title = project.title ?? ""
+                    }
+            }
+            Section(header: Text("Client")) {
+                TextField("Client", text: $client)
+                    .onAppear {
+                        client = project.client ?? ""
+                    }
+            }
+        }
+        .onDisappear {
+            if (title != "") {
+                project.title = title
+            }
+            project.client = client
+            
+            saveContext()
+        }
+        .navigationBarTitle(Text("Project Info"), displayMode: .inline)
     }
-}
-
-struct ProjectInfo_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectInfo()
+    
+    func saveContext() {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            // TODO: proper error handling
+            print("Error saving managed object context: \(error)")
+        }
     }
 }
