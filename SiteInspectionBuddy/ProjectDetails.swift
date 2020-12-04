@@ -21,9 +21,11 @@ struct ProjectDetails: View {
     
     var body: some View {
         let EDIT_PROJECT_INFO = "Edit Project Info"
+        let EDIT_PROJECT_ISSUES = "Edit Project Issues"
         
         List {
             Section {
+                // Edit Project Info
                 NavigationLink(
                     destination: ProjectInfo(project: project),
                     tag: EDIT_PROJECT_INFO,
@@ -39,6 +41,23 @@ struct ProjectDetails: View {
                     }
                 }
                 .listRowBackground(self.selectedListItem == EDIT_PROJECT_INFO ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
+                
+                // Edit Project Issues
+                NavigationLink(
+                    destination: ProjectIssuesList(project: project),
+                    tag: EDIT_PROJECT_ISSUES,
+                    selection: $selectedListItem
+                ) {
+                    Button(action: {
+                        self.selectedListItem = EDIT_PROJECT_ISSUES
+                    }) {
+                        HStack {
+                            Image(systemName: "list.bullet").foregroundColor(.black)
+                            Text(EDIT_PROJECT_ISSUES).foregroundColor(.black)
+                        }
+                    }
+                }
+                .listRowBackground(self.selectedListItem == EDIT_PROJECT_ISSUES ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
             }
         }
         .onDisappear {

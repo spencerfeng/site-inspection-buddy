@@ -26,6 +26,7 @@
 		9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD3325739A880084CC35 /* ProjectDetails.swift */; };
 		9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */; };
 		9C75CD3E2574D9930084CC35 /* ProjectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD3D2574D9930084CC35 /* ProjectInfo.swift */; };
+		9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD42257A4E930084CC35 /* ProjectIssuesList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		9C75CD3325739A880084CC35 /* ProjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetails.swift; sourceTree = "<group>"; };
 		9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Variants.swift"; sourceTree = "<group>"; };
 		9C75CD3D2574D9930084CC35 /* ProjectInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInfo.swift; sourceTree = "<group>"; };
+		9C75CD42257A4E930084CC35 /* ProjectIssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectIssuesList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				9C75CD3325739A880084CC35 /* ProjectDetails.swift */,
 				9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */,
 				9C75CD3D2574D9930084CC35 /* ProjectInfo.swift */,
+				9C75CD42257A4E930084CC35 /* ProjectIssuesList.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				9C75CD3E2574D9930084CC35 /* ProjectInfo.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
+				9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
