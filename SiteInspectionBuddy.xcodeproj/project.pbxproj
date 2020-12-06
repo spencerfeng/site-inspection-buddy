@@ -31,6 +31,7 @@
 		9C75CD4D257B84820084CC35 /* EmptyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD4C257B84820084CC35 /* EmptyModifier.swift */; };
 		9C75CD52257B88AF0084CC35 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD51257B88AF0084CC35 /* View+Extensions.swift */; };
 		9C75CD5A257C61650084CC35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD59257C61650084CC35 /* Constants.swift */; };
+		9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD5E257CA6780084CC35 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		9C75CD4C257B84820084CC35 /* EmptyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModifier.swift; sourceTree = "<group>"; };
 		9C75CD51257B88AF0084CC35 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		9C75CD59257C61650084CC35 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9C75CD5E257CA6780084CC35 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				9C75CD4C257B84820084CC35 /* EmptyModifier.swift */,
 				9C75CD51257B88AF0084CC35 /* View+Extensions.swift */,
 				9C75CD59257C61650084CC35 /* Constants.swift */,
+				9C75CD5E257CA6780084CC35 /* ImagePicker.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				9C75CD3E2574D9930084CC35 /* ProjectInfo.swift in Sources */,
 				9C75CD48257AFF4D0084CC35 /* IssueDetails.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,
+				9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
 				9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */,
 			);

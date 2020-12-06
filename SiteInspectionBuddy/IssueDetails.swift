@@ -14,7 +14,11 @@ struct IssueDetails: View {
         return issue.photosArray.count > 0
     }
     
-    @ViewBuilder
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @State private var isShowPhotoLibrary = false
+    @State private var selectedImage = UIImage()
+    
     var body: some View {
         GeometryReader { geometry in
             HStack {
@@ -32,7 +36,7 @@ struct IssueDetails: View {
                 )
                 Spacer()
                 Button(action: {
-                    // TODO: show photo gallery
+                    self.isShowPhotoLibrary = true
                 }) {
                     HStack {
                         Image(systemName: "photo.on.rectangle").foregroundColor(.black)
@@ -47,6 +51,31 @@ struct IssueDetails: View {
             .padding(.horizontal, Constants.DEFAULT_MARGIN)
             .padding(.vertical, 20)
         }
+        .isEmpty(hasPhotos)
+        .sheet(isPresented: $isShowPhotoLibrary) {
+            ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
+                self.selectedImage = image
+                
+                let newPhoto = Photo(context: managedObjectContext)
+                let now = Date()
+                
+                newPhoto.id = UUID()
+                newPhoto.createdAt = now
+                newPhoto.photoData = image.jpegData(compressionQuality: 0.5)
+                newPhoto.issue = self.issue
+                
+                saveContext()
+            })
+        }
         .navigationBarTitle(Text(issue.title!), displayMode: .inline)
+    }
+    
+    func saveContext() {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            // TODO: proper error handling
+            print("Error saving managed object context: \(error)")
+        }
     }
 }
