@@ -25,6 +25,13 @@ extension Issue {
     @NSManaged public var project: Project?
     @NSManaged public var photos: NSSet?
 
+    public var photosArray: [Photo] {
+        let set = photos as? Set<Photo> ?? []
+        
+        return set.sorted {
+            $0.createdAt! < $1.createdAt!
+        }
+    }
 }
 
 // MARK: Generated accessors for photos
