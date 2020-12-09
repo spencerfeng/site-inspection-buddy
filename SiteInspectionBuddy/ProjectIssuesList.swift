@@ -39,6 +39,9 @@ struct ProjectIssuesList: View {
                 .listRowBackground(self.selectedIssueId == issue.id ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
             }
         }
+        .onDisappear {
+            self.selectedIssueId = nil
+        }
         .navigationBarTitle(Text("Issues"), displayMode: .inline)
         .navigationBarItems(trailing: Button(action: {
             withAnimation(.easeInOut(duration: 1.0)) {
