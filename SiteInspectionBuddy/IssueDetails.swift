@@ -71,7 +71,10 @@ struct IssueDetails: View {
                                 .mask(Circle())
                         }
                         Button(action: {
-                            // TODO: allow the user to delete the image
+                            if (issue.photosArray.count > 0) {
+                                managedObjectContext.delete(issue.photosArray[0])
+                                currentImage = UIImage()
+                            }
                         }) {
                             Image(systemName: "trash")
                                 .padding()
