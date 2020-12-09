@@ -52,19 +52,39 @@ struct IssueDetails: View {
             .padding(.vertical, 20)
             .isEmpty(hasPhotos)
             
-            VStack {
+            ZStack {
                 Image(uiImage: currentImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: geometry.size.width, height: 300, alignment: .center)
                     .clipped()
-                    .isEmpty(!hasPhotos)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                             currentImage = UIImage(data: issue.photosArray[0].photoData!)!
                         }
                     }
+                HStack {
+                    Button(action: {
+                        // TODO: allow the user to edit the image
+                    }) {
+                        Image(systemName: "square.and.pencil")
+                            .padding()
+                            .foregroundColor(Color.white)
+                            .background(Color.green)
+                            .mask(Circle())
+                    }
+                    Button(action: {
+                        // TODO: allow the user to delete the image
+                    }) {
+                        Image(systemName: "trash")
+                            .padding()
+                            .foregroundColor(Color.white)
+                            .background(Color.red)
+                            .mask(Circle())
+                    }
+                }
             }
+            .isEmpty(!hasPhotos)
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
         }
         .sheet(isPresented: $isShowPhotoLibrary) {
