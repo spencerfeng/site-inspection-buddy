@@ -21,71 +21,70 @@ struct IssueDetails: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack {
-                Button(action: {
-                    // TODO: show camera
-                }) {
+            Group {
+                VStack {
+                    Text("Add a photo for this issue").padding(.bottom)
                     HStack {
-                        Image(systemName: "camera").foregroundColor(.black)
-                        Text("Camera").foregroundColor(.black)
-                    }
-                }
-                .frame(width: (geometry.size.width - 3 * Constants.DEFAULT_MARGIN) / 2.0, height: Constants.DEFAULT_BUTTON_HEIGHT)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1)
-                )
-                Spacer()
-                Button(action: {
-                    self.isShowPhotoLibrary = true
-                }) {
-                    HStack {
-                        Image(systemName: "photo.on.rectangle").foregroundColor(.black)
-                        Text("Gallery").foregroundColor(.black)
-                    }
-                }
-                .frame(width: (geometry.size.width - 3 * Constants.DEFAULT_MARGIN) / 2.0, height: Constants.DEFAULT_BUTTON_HEIGHT)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1)
-                )
-            }
-            .padding(.horizontal, Constants.DEFAULT_MARGIN)
-            .padding(.vertical, 20)
-            .isEmpty(hasPhotos)
-            
-            ZStack {
-                Image(uiImage: currentImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width, height: 300, alignment: .center)
-                    .clipped()
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                            currentImage = UIImage(data: issue.photosArray[0].photoData!)!
+                        Button(action: {
+                            // TODO: show camera
+                        }) {
+                            Image(systemName: "camera")
+                                .padding()
+                                .foregroundColor(Color.white)
+                                .background(Color.blue)
+                                .mask(Circle())
+                        }
+                        
+                        Button(action: {
+                            self.isShowPhotoLibrary = true
+                        }) {
+                            Image(systemName: "photo.on.rectangle")
+                                .padding()
+                                .foregroundColor(Color.white)
+                                .background(Color.blue)
+                                .mask(Circle())
                         }
                     }
-                HStack {
-                    Button(action: {
-                        // TODO: allow the user to edit the image
-                    }) {
-                        Image(systemName: "square.and.pencil")
-                            .padding()
-                            .foregroundColor(Color.white)
-                            .background(Color.green)
-                            .mask(Circle())
-                    }
-                    Button(action: {
-                        // TODO: allow the user to delete the image
-                    }) {
-                        Image(systemName: "trash")
-                            .padding()
-                            .foregroundColor(Color.white)
-                            .background(Color.red)
-                            .mask(Circle())
+                }
+                .isEmpty(hasPhotos)
+                .frame(width: geometry.size.width, height: 300, alignment: .center)
+                
+                ZStack {
+                    Image(uiImage: currentImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geometry.size.width, height: 300, alignment: .center)
+                        .clipped()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                currentImage = UIImage(data: issue.photosArray[0].photoData!)!
+                            }
+                        }
+                    HStack {
+                        Button(action: {
+                            // TODO: allow the user to edit the image
+                        }) {
+                            Image(systemName: "square.and.pencil")
+                                .padding()
+                                .foregroundColor(Color.white)
+                                .background(Color.green)
+                                .mask(Circle())
+                        }
+                        Button(action: {
+                            // TODO: allow the user to delete the image
+                        }) {
+                            Image(systemName: "trash")
+                                .padding()
+                                .foregroundColor(Color.white)
+                                .background(Color.red)
+                                .mask(Circle())
+                        }
                     }
                 }
+                .isEmpty(!hasPhotos)
             }
-            .isEmpty(!hasPhotos)
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+            
         }
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
