@@ -17,7 +17,7 @@ struct IssueDetails: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State private var isShowPhotoLibrary = false
-    @State private var selectedImage = UIImage()
+    @State private var currentImage = UIImage()
     
     var body: some View {
         GeometryReader { geometry in
@@ -50,11 +50,26 @@ struct IssueDetails: View {
             }
             .padding(.horizontal, Constants.DEFAULT_MARGIN)
             .padding(.vertical, 20)
+            .isEmpty(hasPhotos)
+            
+            VStack {
+                Image(uiImage: currentImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: geometry.size.width, height: 300, alignment: .center)
+                    .clipped()
+                    .isEmpty(!hasPhotos)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            currentImage = UIImage(data: issue.photosArray[0].photoData!)!
+                        }
+                    }
+            }
+            .background(Color(red: 242/255, green: 242/255, blue: 242/255))
         }
-        .isEmpty(hasPhotos)
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
-                self.selectedImage = image
+                self.currentImage = image
                 
                 let newPhoto = Photo(context: managedObjectContext)
                 let now = Date()
