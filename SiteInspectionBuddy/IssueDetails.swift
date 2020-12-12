@@ -18,6 +18,7 @@ struct IssueDetails: View {
     
     @State private var isShowPhotoLibrary = false
     @State private var currentImage = UIImage()
+    @State private var isShowPhotoEditor = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -48,6 +49,21 @@ struct IssueDetails: View {
                 }
                 .isEmpty(hasPhotos)
                 .frame(width: geometry.size.width, height: 300, alignment: .center)
+                .sheet(isPresented: $isShowPhotoLibrary) {
+                    ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
+                        self.currentImage = image
+                        
+                        let newPhoto = Photo(context: managedObjectContext)
+                        let now = Date()
+                        
+                        newPhoto.id = UUID()
+                        newPhoto.createdAt = now
+                        newPhoto.photoData = image.jpegData(compressionQuality: 0.5)
+                        newPhoto.issue = self.issue
+                        
+                        saveContext()
+                    })
+                }
                 
                 ZStack {
                     Image(uiImage: currentImage)
@@ -62,7 +78,7 @@ struct IssueDetails: View {
                         }
                     HStack {
                         Button(action: {
-                            // TODO: allow the user to edit the image
+                            isShowPhotoEditor = true
                         }) {
                             Image(systemName: "square.and.pencil")
                                 .padding()
@@ -85,24 +101,10 @@ struct IssueDetails: View {
                     }
                 }
                 .isEmpty(!hasPhotos)
+                .fullScreenCover(isPresented: $isShowPhotoEditor, content: IssuePhotoEditor.init)
             }
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
             
-        }
-        .sheet(isPresented: $isShowPhotoLibrary) {
-            ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
-                self.currentImage = image
-                
-                let newPhoto = Photo(context: managedObjectContext)
-                let now = Date()
-                
-                newPhoto.id = UUID()
-                newPhoto.createdAt = now
-                newPhoto.photoData = image.jpegData(compressionQuality: 0.5)
-                newPhoto.issue = self.issue
-                
-                saveContext()
-            })
         }
         .navigationBarTitle(Text(issue.title!), displayMode: .inline)
     }
