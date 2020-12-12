@@ -9,10 +9,14 @@
 
     struct IssuePhotoEditor: View {
         @Environment(\.presentationMode) var presentationMode
+        
+        let image: UIImage
 
         var body: some View {
             NavigationView {
-                Text("Image")
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button(action: {
@@ -41,11 +45,5 @@
                     }
                     .navigationBarTitle(Text("Annotations"), displayMode: .inline)
             }
-        }
-    }
-
-    struct IssuePhotoEditor_Previews: PreviewProvider {
-        static var previews: some View {
-            IssuePhotoEditor()
         }
     }

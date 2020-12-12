@@ -101,7 +101,9 @@ struct IssueDetails: View {
                     }
                 }
                 .isEmpty(!hasPhotos)
-                .fullScreenCover(isPresented: $isShowPhotoEditor, content: IssuePhotoEditor.init)
+                .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
+                    IssuePhotoEditor(image: currentImage)
+                })
             }
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
             
