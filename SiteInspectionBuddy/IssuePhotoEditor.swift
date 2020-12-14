@@ -10,13 +10,14 @@
     struct IssuePhotoEditor: View {
         @Environment(\.presentationMode) var presentationMode
         
-        let image: UIImage
+        @Binding var image: UIImage
 
         var body: some View {
             NavigationView {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: .fit)
+                    .overlay(DrawingPadRepresentation(drawingImage: $image, pickedColor: PickedColor.black))
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button(action: {
