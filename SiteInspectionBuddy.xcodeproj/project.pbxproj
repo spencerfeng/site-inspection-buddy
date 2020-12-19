@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E4258460E500ADEFA9 /* CanvasView.swift */; };
 		9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */; };
-		9C70F8F42585DA9800ADEFA9 /* DrawingPadRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */; };
+		9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */; };
+		9C70F904258A003800ADEFA9 /* DrawingPadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F903258A003800ADEFA9 /* DrawingPadController.swift */; };
 		9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCCF25734F330084CC35 /* AppDelegate.swift */; };
 		9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCD125734F330084CC35 /* SceneDelegate.swift */; };
 		9C75CCD425734F330084CC35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCD325734F330084CC35 /* ContentView.swift */; };
@@ -35,7 +36,6 @@
 		9C75CD52257B88AF0084CC35 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD51257B88AF0084CC35 /* View+Extensions.swift */; };
 		9C75CD5A257C61650084CC35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD59257C61650084CC35 /* Constants.swift */; };
 		9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD5E257CA6780084CC35 /* ImagePicker.swift */; };
-		9C7D13C025822E610044CE3F /* IssuePhotoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,8 @@
 /* Begin PBXFileReference section */
 		9C70F8E4258460E500ADEFA9 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedColor.swift; sourceTree = "<group>"; };
-		9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadRepresentation.swift; sourceTree = "<group>"; };
+		9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadControllerRepresentation.swift; sourceTree = "<group>"; };
+		9C70F903258A003800ADEFA9 /* DrawingPadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadController.swift; sourceTree = "<group>"; };
 		9C75CCCC25734F330084CC35 /* SiteInspectionBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiteInspectionBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75CCCF25734F330084CC35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C75CCD125734F330084CC35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		9C75CD51257B88AF0084CC35 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		9C75CD59257C61650084CC35 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C75CD5E257CA6780084CC35 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuePhotoEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,10 +165,10 @@
 				9C75CD51257B88AF0084CC35 /* View+Extensions.swift */,
 				9C75CD59257C61650084CC35 /* Constants.swift */,
 				9C75CD5E257CA6780084CC35 /* ImagePicker.swift */,
-				9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */,
 				9C70F8E4258460E500ADEFA9 /* CanvasView.swift */,
 				9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */,
-				9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */,
+				9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */,
+				9C70F903258A003800ADEFA9 /* DrawingPadController.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -331,16 +331,16 @@
 			files = (
 				9C75CD52257B88AF0084CC35 /* View+Extensions.swift in Sources */,
 				9C75CD5A257C61650084CC35 /* Constants.swift in Sources */,
+				9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */,
 				9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */,
+				9C70F904258A003800ADEFA9 /* DrawingPadController.swift in Sources */,
 				9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */,
 				9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */,
 				9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */,
 				9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */,
 				9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */,
 				9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */,
-				9C7D13C025822E610044CE3F /* IssuePhotoEditor.swift in Sources */,
 				9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */,
-				9C70F8F42585DA9800ADEFA9 /* DrawingPadRepresentation.swift in Sources */,
 				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
 				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
 				9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */,

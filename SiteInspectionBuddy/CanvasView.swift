@@ -8,14 +8,16 @@
 import Foundation
 import UIKit
 
-class CanvasView: UIControl {
-    var drawingImage: UIImage
-    var drawColor: UIColor = .blue
+class CanvasView: UIView {
+    var drawColor: UIColor
+    var image: UIImage
     
-    init(color: UIColor, drawingImage: UIImage) {
-        self.drawingImage = drawingImage
+    var paths = [[CGPoint]]()
+    
+    init(image: UIImage, color: UIColor) {
         self.drawColor = color
-        super.init(frame: .zero)
+        self.image = image
+        super.init(frame: CGRect.zero)
     }
     
     required init?(coder: NSCoder) {
@@ -23,36 +25,41 @@ class CanvasView: UIControl {
     }
     
     override func draw(_ rect: CGRect) {
-        drawingImage.draw(in: rect)
+        image.draw(in: rect)
+        
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        
+        context.setStrokeColor(drawColor.cgColor)
+        context.setLineWidth(5)
+        context.setLineCap(.butt)
+        
+        paths.forEach { path in
+            for (i, p) in path.enumerated() {
+                if i == 0 {
+                    context.move(to: p)
+                } else {
+                    context.addLine(to: p)
+                }
+            }
+        }
+        
+        context.strokePath()
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        sendActions(for: .valueChanged)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        paths.append([CGPoint]())
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        drawingImage = UIGraphicsImageRenderer(size: bounds.size).image { context in
-            UIColor.white.setFill()
-            context.fill(bounds)
-            drawingImage.draw(in: bounds)
-            drawStroke(context: context.cgContext, touch: touch)
-            setNeedsDisplay()
-        }
+        guard let point = touches.first?.location(in: self) else { return }
+        
+        guard var lastPath = paths.popLast() else { return }
+        lastPath.append(point)
+        paths.append(lastPath)
+        
+        setNeedsDisplay()
     }
-    
-    private func drawStroke(context: CGContext, touch: UITouch) {
-        let previousLocation = touch.previousLocation(in: self)
-        let location = touch.location(in: self)
-        
-        let lineWidth: CGFloat = 5
-        context.setLineWidth(lineWidth)
-        drawColor.setStroke()
-        context.setLineCap(.round)
-        
-        context.move(to: previousLocation)
-        context.addLine(to: location)
-        context.strokePath()
-      }
 }
 
