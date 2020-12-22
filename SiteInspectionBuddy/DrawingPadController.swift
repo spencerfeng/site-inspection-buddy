@@ -14,7 +14,13 @@ protocol DrawingPadControllerDelegate: AnyObject {
 
 class DrawingPadController: UIViewController {
     let image: UIImage
+    let sfSymbolImageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
+    let colorPickerBtnImg = UIImage(systemName: "circle.fill")
+    let undoBtnImg = UIImage(systemName: "arrow.counterclockwise")
+    let colorPickerBtn = UIButton(type: .custom)
+    let undoBtn = UIButton(type: .custom)
     
+    var pickedColor = UIColor(.yellow)
     weak var delegate: DrawingPadControllerDelegate?
     
     init(image: UIImage) {
@@ -45,6 +51,7 @@ class DrawingPadController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 1. add image canvas
         let width = view.bounds.width
         let height = (image.size.height / image.size.width) * width
         let canvas = CanvasView(image: image, color: UIColor(.green))
@@ -60,6 +67,33 @@ class DrawingPadController: UIViewController {
             canvas.widthAnchor.constraint(equalToConstant: width),
             canvas.heightAnchor.constraint(equalToConstant: height)
         ])
+        
+        // 2. add bottom toolbar
+        let bottomToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
+        bottomToolbar.barTintColor = UIColor.white
+        
+        // color picker button
+        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(pickedColor, renderingMode: .alwaysOriginal), for: .normal)
+        colorPickerBtn.addTarget(self, action: #selector(handleColorPickerBtnClicked), for: .touchUpInside)
+        let colorPickerBarButtonItem = UIBarButtonItem(customView: colorPickerBtn)
+        
+        // undo button
+        undoBtn.setImage(UIImage(systemName: "arrow.counterclockwise", withConfiguration: sfSymbolImageConfig), for: .normal)
+        undoBtn.addTarget(self, action: #selector(handleUndoBtnClicked), for: .touchUpInside)
+        let undoBarButtonItem = UIBarButtonItem(customView: undoBtn)
+        
+        // spacer
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        bottomToolbar.items = [spacer, colorPickerBarButtonItem, spacer, undoBarButtonItem, spacer]
+        
+        view.addSubview(bottomToolbar)
+        
+        bottomToolbar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomToolbar.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bottomToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
    }
     
     @objc func handleCancelBtnClick() {
@@ -70,5 +104,13 @@ class DrawingPadController: UIViewController {
         guard let viewWithTag = self.view.viewWithTag(100) else { return } // TODO: do something if the canvas view can not be found
         guard let canvas = viewWithTag as? CanvasView else { return }
         self.delegate?.drawingPadControllerWillSaveDrawing(self, canvas: canvas)
+    }
+    
+    @objc func handleColorPickerBtnClicked() {
+        print("color picker button clicked")
+    }
+    
+    @objc func handleUndoBtnClicked() {
+        print("undo button clicked")
     }
 }
