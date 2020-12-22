@@ -54,6 +54,9 @@ struct ProjectsList: View {
                 Image(systemName: "plus")
             })
         }
+        // fix an issue which causes 'SwiftUI displayModeButtonItem is internally managed' warning in the console
+        // stackoverflow reference: https://stackoverflow.com/questions/63740788/swiftui-displaymodebuttonitem-is-internally-managed
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func deleteProject(at offsets: IndexSet) {
