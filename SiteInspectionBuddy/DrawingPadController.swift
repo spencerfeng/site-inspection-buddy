@@ -32,12 +32,12 @@ class DrawingPadController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillLayoutSubviews() {
-        let width = view.frame.width
-        let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
-        navigationBar.barTintColor = UIColor.white
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        view.addSubview(navigationBar)
+        // 1. add top navigation bar
+        let navigationBar: UINavigationBar = UINavigationBar()
+        navigationBar.barTintColor = UIColor.white
         
         let navigationItem = UINavigationItem(title: "Annotation")
         let doneBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(handleDoneBtnClick))
@@ -46,12 +46,16 @@ class DrawingPadController: UIViewController {
         navigationItem.rightBarButtonItem = doneBtn
         navigationItem.leftBarButtonItem = cancelBtn
         navigationBar.setItems([navigationItem], animated: false)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        // 1. add image canvas
+        view.addSubview(navigationBar)
+        
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            navigationBar.widthAnchor.constraint(equalTo: view.widthAnchor),
+            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+        
+        // 2. add image canvas
         let width = view.bounds.width
         let height = (image.size.height / image.size.width) * width
         let canvas = CanvasView(image: image, color: UIColor(.green))
@@ -68,7 +72,7 @@ class DrawingPadController: UIViewController {
             canvas.heightAnchor.constraint(equalToConstant: height)
         ])
         
-        // 2. add bottom toolbar
+        // 3. add bottom toolbar
         let bottomToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
         bottomToolbar.barTintColor = UIColor.white
         
