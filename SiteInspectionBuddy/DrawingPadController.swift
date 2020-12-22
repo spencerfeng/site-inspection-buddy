@@ -73,6 +73,8 @@ class DrawingPadController: UIViewController {
         ])
         
         // 3. add bottom toolbar
+        
+        // for some reason, if we do not initialise UIToolbar with a frame with a width value, we will get auto layout constraint conflicts with its bar items. Related issue on stackoverflow: https://stackoverflow.com/questions/54284029/uitoolbar-with-uibarbuttonitem-layoutconstraint-issue
         let bottomToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
         bottomToolbar.barTintColor = UIColor.white
         
