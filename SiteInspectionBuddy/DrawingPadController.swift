@@ -19,6 +19,7 @@ class DrawingPadController: UIViewController {
     let undoBtnImg = UIImage(systemName: "arrow.counterclockwise")
     let colorPickerBtn = UIButton(type: .custom)
     let undoBtn = UIButton(type: .custom)
+    let colorPickerBarButtonItem = UIBarButtonItem()
     
     var pickedColor = UIColor(.yellow)
     weak var delegate: DrawingPadControllerDelegate?
@@ -81,7 +82,7 @@ class DrawingPadController: UIViewController {
         // color picker button
         colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(pickedColor, renderingMode: .alwaysOriginal), for: .normal)
         colorPickerBtn.addTarget(self, action: #selector(handleColorPickerBtnClicked), for: .touchUpInside)
-        let colorPickerBarButtonItem = UIBarButtonItem(customView: colorPickerBtn)
+        colorPickerBarButtonItem.customView = colorPickerBtn
         
         // undo button
         undoBtn.setImage(UIImage(systemName: "arrow.counterclockwise", withConfiguration: sfSymbolImageConfig), for: .normal)
@@ -113,10 +114,23 @@ class DrawingPadController: UIViewController {
     }
     
     @objc func handleColorPickerBtnClicked() {
-        print("color picker button clicked")
+        let colorOptionsVC = ColorOptionsController()
+        colorOptionsVC.preferredContentSize = CGSize(width: Constants.POPOVER_WIDTH, height: Constants.COLOR_PICKER_POPOVER_HEIGHT)
+        colorOptionsVC.modalPresentationStyle = .popover
+        let popover: UIPopoverPresentationController = colorOptionsVC.popoverPresentationController!
+        popover.sourceView = view
+        popover.delegate = self
+        popover.barButtonItem = colorPickerBarButtonItem
+        present(colorOptionsVC, animated: true)
     }
     
     @objc func handleUndoBtnClicked() {
         print("undo button clicked")
+    }
+}
+
+extension DrawingPadController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }
