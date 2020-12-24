@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */; };
+		9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */; };
 		9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E4258460E500ADEFA9 /* CanvasView.swift */; };
 		9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */; };
 		9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionsController.swift; sourceTree = "<group>"; };
+		9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidColoredCircleButton.swift; sourceTree = "<group>"; };
 		9C70F8E4258460E500ADEFA9 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedColor.swift; sourceTree = "<group>"; };
 		9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadControllerRepresentation.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */,
 				9C70F903258A003800ADEFA9 /* DrawingPadController.swift */,
 				9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */,
+				9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
 				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
 				9C75CD4D257B84820084CC35 /* EmptyModifier.swift in Sources */,
+				9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */,
 				9C75CD3E2574D9930084CC35 /* ProjectInfo.swift in Sources */,
 				9C75CD48257AFF4D0084CC35 /* IssueDetails.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,

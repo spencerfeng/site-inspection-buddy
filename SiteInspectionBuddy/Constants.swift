@@ -14,4 +14,6 @@ struct Constants {
     static let COLOR_PICKER_POPOVER_HEIGHT: CGFloat = 100
     static let POPOVER_WIDTH: CGFloat = 300
     static let POPOVER_ARROW_HEIGHT: CGFloat = 12
+    
+    static let DRAWING_DEFAULT_COLOR: UIColor = UIColor(.yellow)
 }

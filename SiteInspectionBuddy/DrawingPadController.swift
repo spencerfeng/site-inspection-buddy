@@ -20,12 +20,15 @@ class DrawingPadController: UIViewController {
     let colorPickerBtn = UIButton(type: .custom)
     let undoBtn = UIButton(type: .custom)
     let colorPickerBarButtonItem = UIBarButtonItem()
+    let canvas: CanvasView
     
-    var pickedColor = UIColor(.yellow)
+    var drawColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(image: UIImage) {
+    init(image: UIImage, drawColor: UIColor) {
         self.image = image
+        self.drawColor = drawColor
+        self.canvas = CanvasView(image: image, drawColor: drawColor)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,7 +62,6 @@ class DrawingPadController: UIViewController {
         // 2. add image canvas
         let width = view.bounds.width
         let height = (image.size.height / image.size.width) * width
-        let canvas = CanvasView(image: image, color: UIColor(.green))
         canvas.tag = 100
         canvas.isUserInteractionEnabled = true
         
@@ -80,7 +82,7 @@ class DrawingPadController: UIViewController {
         bottomToolbar.barTintColor = UIColor.white
         
         // color picker button
-        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(pickedColor, renderingMode: .alwaysOriginal), for: .normal)
+        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(drawColor, renderingMode: .alwaysOriginal), for: .normal)
         colorPickerBtn.addTarget(self, action: #selector(handleColorPickerBtnClicked), for: .touchUpInside)
         colorPickerBarButtonItem.customView = colorPickerBtn
         
@@ -115,6 +117,7 @@ class DrawingPadController: UIViewController {
     
     @objc func handleColorPickerBtnClicked() {
         let colorOptionsVC = ColorOptionsController()
+        colorOptionsVC.delegate = self
         colorOptionsVC.preferredContentSize = CGSize(width: Constants.POPOVER_WIDTH, height: Constants.COLOR_PICKER_POPOVER_HEIGHT)
         colorOptionsVC.modalPresentationStyle = .popover
         let popover: UIPopoverPresentationController = colorOptionsVC.popoverPresentationController!
@@ -132,5 +135,14 @@ class DrawingPadController: UIViewController {
 extension DrawingPadController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+extension DrawingPadController: ColorOptionsControllerDelegate {
+    func colorOptionsController(_ colorOptions: ColorOptionsController, didFinishPickingColor color: UIColor) {
+        drawColor = color
+        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(drawColor, renderingMode: .alwaysOriginal), for: .normal)
+        canvas.drawColor = drawColor
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }

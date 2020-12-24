@@ -7,41 +7,57 @@
 
 import UIKit
 
+protocol ColorOptionsControllerDelegate: AnyObject {
+    func colorOptionsController(_ colorOptions: ColorOptionsController, didFinishPickingColor: UIColor)
+}
+
 class ColorOptionsController: UIViewController {
     let sfSymbolImageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
+    
+    weak var delegate: ColorOptionsControllerDelegate?
     
     override func loadView() {
         super.loadView()
         
-        let yellowBtn = UIButton(type: .custom)
+        let yellowBtn = SolidColoredCircleButton(color: UIColor(.yellow))
         yellowBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.yellow), renderingMode: .alwaysOriginal), for: .normal)
+        yellowBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let greenBtn = UIButton(type: .custom)
+        let greenBtn = SolidColoredCircleButton(color: UIColor(.green))
         greenBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.green), renderingMode: .alwaysOriginal), for: .normal)
+        greenBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let blueBtn = UIButton(type: .custom)
+        let blueBtn = SolidColoredCircleButton(color: UIColor(.blue))
         blueBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.blue), renderingMode: .alwaysOriginal), for: .normal)
+        blueBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let blackBtn = UIButton(type: .custom)
+        let blackBtn = SolidColoredCircleButton(color: UIColor(.black))
         blackBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.black), renderingMode: .alwaysOriginal), for: .normal)
+        blackBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let whiteBtn = UIButton(type: .custom)
+        let whiteBtn = SolidColoredCircleButton(color: UIColor(.white))
         whiteBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.white), renderingMode: .alwaysOriginal), for: .normal)
+        whiteBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let orangeBtn = UIButton(type: .custom)
+        let orangeBtn = SolidColoredCircleButton(color: UIColor(.orange))
         orangeBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.orange), renderingMode: .alwaysOriginal), for: .normal)
+        orangeBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let pinkBtn = UIButton(type: .custom)
+        let pinkBtn = SolidColoredCircleButton(color: UIColor(.pink))
         pinkBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.pink), renderingMode: .alwaysOriginal), for: .normal)
+        pinkBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let redBtn = UIButton(type: .custom)
+        let redBtn = SolidColoredCircleButton(color: UIColor(.red))
         redBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.red), renderingMode: .alwaysOriginal), for: .normal)
+        redBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let grayBtn = UIButton(type: .custom)
+        let grayBtn = SolidColoredCircleButton(color: UIColor(.gray))
         grayBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.gray), renderingMode: .alwaysOriginal), for: .normal)
+        grayBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
-        let purpleBtn = UIButton(type: .custom)
+        let purpleBtn = SolidColoredCircleButton(color: UIColor(.purple))
         purpleBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(UIColor(.purple), renderingMode: .alwaysOriginal), for: .normal)
+        purpleBtn.addTarget(self, action: #selector(handleColorSelection), for: .touchUpInside)
         
         view.addSubview(yellowBtn)
         view.addSubview(greenBtn)
@@ -133,5 +149,9 @@ class ColorOptionsController: UIViewController {
             purpleBtn.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
             purpleBtn.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5, constant: -Constants.POPOVER_ARROW_HEIGHT / 2.0)
         ])
+    }
+    
+    @objc func handleColorSelection(_ sender: SolidColoredCircleButton) {
+        self.delegate?.colorOptionsController(self, didFinishPickingColor: sender.color)
     }
 }

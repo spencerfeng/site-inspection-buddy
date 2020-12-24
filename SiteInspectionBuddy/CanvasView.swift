@@ -14,8 +14,8 @@ class CanvasView: UIView {
     
     var paths = [[CGPoint]]()
     
-    init(image: UIImage, color: UIColor) {
-        self.drawColor = color
+    init(image: UIImage, drawColor: UIColor) {
+        self.drawColor = drawColor
         self.image = image
         super.init(frame: CGRect.zero)
     }
