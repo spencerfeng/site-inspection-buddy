@@ -32,6 +32,10 @@ extension Issue {
             $0.createdAt! < $1.createdAt!
         }
     }
+    
+    public var hasPhotos: Bool {
+        return photosArray.count > 0
+    }
 }
 
 // MARK: Generated accessors for photos

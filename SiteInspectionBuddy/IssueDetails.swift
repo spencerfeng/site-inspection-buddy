@@ -10,10 +10,6 @@ import SwiftUI
 struct IssueDetails: View {
     var issue: Issue
     
-    var hasPhotos: Bool {
-        return issue.photosArray.count > 0
-    }
-    
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State private var isShowPhotoLibrary = false
@@ -47,7 +43,7 @@ struct IssueDetails: View {
                         }
                     }
                 }
-                .isEmpty(hasPhotos)
+                .isEmpty(issue.hasPhotos)
                 .frame(width: geometry.size.width, height: 300, alignment: .center)
                 .sheet(isPresented: $isShowPhotoLibrary) {
                     ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
@@ -100,7 +96,7 @@ struct IssueDetails: View {
                         }
                     }
                 }
-                .isEmpty(!hasPhotos)
+                .isEmpty(!issue.hasPhotos)
                 .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
                     DrawingPadControllerRepresentation(image: $currentImage, strokeColor: Constants.DRAWING_DEFAULT_COLOR, issue: issue)
                 })
