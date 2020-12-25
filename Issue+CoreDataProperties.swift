@@ -36,6 +36,11 @@ extension Issue {
     public var hasPhotos: Bool {
         return photosArray.count > 0
     }
+    
+    public var firstPhoto: Photo? {
+        if !hasPhotos { return nil }
+        return photosArray[0]
+    }
 }
 
 // MARK: Generated accessors for photos

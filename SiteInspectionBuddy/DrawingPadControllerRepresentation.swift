@@ -11,7 +11,7 @@ import UIKit
 struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage
     var strokeColor: UIColor
-    let issue: Issue
+    let photo: Photo
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -58,8 +58,7 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
             UIGraphicsEndImageContext()
 
             guard let imageWithMarkup = viewScreenshot else { return }
-            let thisPhoto = parent.issue.photosArray[0]
-            thisPhoto.photoData = imageWithMarkup.jpegData(compressionQuality: 0.5)
+            parent.photo.photoData = imageWithMarkup.jpegData(compressionQuality: 0.5)
             parent.saveContext()
             parent.image = imageWithMarkup
             parent.presentationMode.wrappedValue.dismiss()
