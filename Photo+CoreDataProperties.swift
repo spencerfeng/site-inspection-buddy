@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  SiteInspectionBuddy
 //
-//  Created by Spencer Feng on 29/11/20.
+//  Created by Spencer Feng on 25/12/20.
 //
 //
 
@@ -16,10 +16,11 @@ extension Photo {
         return NSFetchRequest<Photo>(entityName: "Photo")
     }
 
+    @NSManaged public var createdAt: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var photoData: Data?
-    @NSManaged public var createdAt: Date?
     @NSManaged public var updatedAt: Date?
+    @NSManaged public var annotation: Paths?
     @NSManaged public var issue: Issue?
 
 }

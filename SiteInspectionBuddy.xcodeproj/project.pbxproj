@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */; };
 		9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */; };
+		9C6F35E52595E04A009B8CD6 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35E42595E04A009B8CD6 /* Path.swift */; };
+		9C6F35ED2595F524009B8CD6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35EC2595F524009B8CD6 /* Paths.swift */; };
 		9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E4258460E500ADEFA9 /* CanvasView.swift */; };
 		9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */; };
 		9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionsController.swift; sourceTree = "<group>"; };
 		9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidColoredCircleButton.swift; sourceTree = "<group>"; };
+		9C6F35E42595E04A009B8CD6 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		9C6F35EC2595F524009B8CD6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		9C70F8E4258460E500ADEFA9 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedColor.swift; sourceTree = "<group>"; };
 		9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadControllerRepresentation.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C6F35E32595E026009B8CD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C6F35E42595E04A009B8CD6 /* Path.swift */,
+				9C6F35EC2595F524009B8CD6 /* Paths.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		9C75CCC325734F330084CC35 = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +164,7 @@
 		9C75CCCE25734F330084CC35 /* SiteInspectionBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				9C6F35E32595E026009B8CD6 /* Models */,
 				9C75CCCF25734F330084CC35 /* AppDelegate.swift */,
 				9C75CCD125734F330084CC35 /* SceneDelegate.swift */,
 				9C75CCD325734F330084CC35 /* ContentView.swift */,
@@ -349,6 +363,7 @@
 				9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */,
 				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
 				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
+				9C6F35ED2595F524009B8CD6 /* Paths.swift in Sources */,
 				9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */,
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
 				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
@@ -360,6 +375,7 @@
 				9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
 				9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */,
+				9C6F35E52595E04A009B8CD6 /* Path.swift in Sources */,
 				9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
