@@ -12,7 +12,7 @@ class CanvasView: UIView {
     var strokeColor: UIColor
     var image: UIImage
     
-    var paths = [[CGPoint]]()
+    var paths = [Path]()
     
     init(image: UIImage, strokeColor: UIColor) {
         self.strokeColor = strokeColor
@@ -31,32 +31,33 @@ class CanvasView: UIView {
             return
         }
         
-        context.setStrokeColor(strokeColor.cgColor)
-        context.setLineWidth(5)
         context.setLineCap(.butt)
         
         paths.forEach { path in
-            for (i, p) in path.enumerated() {
+            context.setStrokeColor(path.strokeColor.cgColor)
+            context.setLineWidth(5)
+            
+            for (i, p) in path.points.enumerated() {
                 if i == 0 {
                     context.move(to: p)
                 } else {
                     context.addLine(to: p)
                 }
             }
+            
+            context.strokePath()
         }
-        
-        context.strokePath()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        paths.append([CGPoint]())
+        paths.append(Path(strokeColor: strokeColor, points: []))
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         
-        guard var lastPath = paths.popLast() else { return }
-        lastPath.append(point)
+        guard let lastPath = paths.popLast() else { return }
+        lastPath.points.append(point)
         paths.append(lastPath)
         
         setNeedsDisplay()

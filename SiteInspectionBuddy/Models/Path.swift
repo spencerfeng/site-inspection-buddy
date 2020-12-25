@@ -9,7 +9,7 @@ import UIKit
 
 public class Path: NSObject, NSCoding {
     let strokeColor: UIColor
-    let points: [CGPoint]
+    var points: [CGPoint]
     
     enum Key: String {
         case strokeColor = "strokeColor"
