@@ -31,7 +31,7 @@ class CanvasView: UIView {
             return
         }
         
-        context.setLineCap(.butt)
+        context.setLineCap(.round)
         
         paths.forEach { path in
             context.setStrokeColor(path.strokeColor.cgColor)
