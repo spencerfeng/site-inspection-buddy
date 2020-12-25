@@ -22,13 +22,13 @@ class DrawingPadController: UIViewController {
     let colorPickerBarButtonItem = UIBarButtonItem()
     let canvas: CanvasView
     
-    var drawColor: UIColor
+    var strokeColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(image: UIImage, drawColor: UIColor) {
+    init(image: UIImage, strokeColor: UIColor) {
         self.image = image
-        self.drawColor = drawColor
-        self.canvas = CanvasView(image: image, drawColor: drawColor)
+        self.strokeColor = strokeColor
+        self.canvas = CanvasView(image: image, strokeColor: strokeColor)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -82,7 +82,7 @@ class DrawingPadController: UIViewController {
         bottomToolbar.barTintColor = UIColor.white
         
         // color picker button
-        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(drawColor, renderingMode: .alwaysOriginal), for: .normal)
+        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(strokeColor, renderingMode: .alwaysOriginal), for: .normal)
         colorPickerBtn.addTarget(self, action: #selector(handleColorPickerBtnClicked), for: .touchUpInside)
         colorPickerBarButtonItem.customView = colorPickerBtn
         
@@ -140,9 +140,9 @@ extension DrawingPadController: UIPopoverPresentationControllerDelegate {
 
 extension DrawingPadController: ColorOptionsControllerDelegate {
     func colorOptionsController(_ colorOptions: ColorOptionsController, didFinishPickingColor color: UIColor) {
-        drawColor = color
-        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(drawColor, renderingMode: .alwaysOriginal), for: .normal)
-        canvas.drawColor = drawColor
+        strokeColor = color
+        colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(strokeColor, renderingMode: .alwaysOriginal), for: .normal)
+        canvas.strokeColor = strokeColor
         self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }

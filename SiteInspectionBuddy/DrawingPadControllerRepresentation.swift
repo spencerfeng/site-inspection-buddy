@@ -10,14 +10,14 @@ import UIKit
 
 struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Binding var image: UIImage
-    var drawColor: UIColor
+    var strokeColor: UIColor
     let issue: Issue
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
     
     func makeUIViewController(context: Context) -> DrawingPadController {
-        let drawingPad = DrawingPadController(image: image, drawColor: drawColor)
+        let drawingPad = DrawingPadController(image: image, strokeColor: strokeColor)
         drawingPad.delegate = context.coordinator
         
         return drawingPad

@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class CanvasView: UIView {
-    var drawColor: UIColor
+    var strokeColor: UIColor
     var image: UIImage
     
     var paths = [[CGPoint]]()
     
-    init(image: UIImage, drawColor: UIColor) {
-        self.drawColor = drawColor
+    init(image: UIImage, strokeColor: UIColor) {
+        self.strokeColor = strokeColor
         self.image = image
         super.init(frame: CGRect.zero)
     }
@@ -31,7 +31,7 @@ class CanvasView: UIView {
             return
         }
         
-        context.setStrokeColor(drawColor.cgColor)
+        context.setStrokeColor(strokeColor.cgColor)
         context.setLineWidth(5)
         context.setLineCap(.butt)
         
