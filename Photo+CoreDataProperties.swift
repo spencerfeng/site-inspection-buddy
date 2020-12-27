@@ -20,7 +20,7 @@ extension Photo {
     @NSManaged public var id: UUID?
     @NSManaged public var photoData: Data?
     @NSManaged public var updatedAt: Date?
-    @NSManaged public var annotation: Paths?
+    @NSManaged public var annotation: StrokePaths?
     @NSManaged public var issue: Issue?
 
 }

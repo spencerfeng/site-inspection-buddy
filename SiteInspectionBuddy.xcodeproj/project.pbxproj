@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */; };
 		9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */; };
-		9C6F35E52595E04A009B8CD6 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35E42595E04A009B8CD6 /* Path.swift */; };
-		9C6F35ED2595F524009B8CD6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35EC2595F524009B8CD6 /* Paths.swift */; };
+		9C6F35E52595E04A009B8CD6 /* StrokePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35E42595E04A009B8CD6 /* StrokePath.swift */; };
+		9C6F35ED2595F524009B8CD6 /* StrokePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35EC2595F524009B8CD6 /* StrokePaths.swift */; };
 		9C6F35FA2596B519009B8CD6 /* AnnotationAttributeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35F92596B519009B8CD6 /* AnnotationAttributeTransformer.swift */; };
+		9C6F35FF25986B74009B8CD6 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35FE25986B74009B8CD6 /* AnnotationView.swift */; };
 		9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E4258460E500ADEFA9 /* CanvasView.swift */; };
 		9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */; };
 		9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */; };
@@ -63,9 +64,10 @@
 /* Begin PBXFileReference section */
 		9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionsController.swift; sourceTree = "<group>"; };
 		9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidColoredCircleButton.swift; sourceTree = "<group>"; };
-		9C6F35E42595E04A009B8CD6 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
-		9C6F35EC2595F524009B8CD6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		9C6F35E42595E04A009B8CD6 /* StrokePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokePath.swift; sourceTree = "<group>"; };
+		9C6F35EC2595F524009B8CD6 /* StrokePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokePaths.swift; sourceTree = "<group>"; };
 		9C6F35F92596B519009B8CD6 /* AnnotationAttributeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAttributeTransformer.swift; sourceTree = "<group>"; };
+		9C6F35FE25986B74009B8CD6 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		9C70F8E4258460E500ADEFA9 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedColor.swift; sourceTree = "<group>"; };
 		9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadControllerRepresentation.swift; sourceTree = "<group>"; };
@@ -131,8 +133,8 @@
 		9C6F35E32595E026009B8CD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9C6F35E42595E04A009B8CD6 /* Path.swift */,
-				9C6F35EC2595F524009B8CD6 /* Paths.swift */,
+				9C6F35E42595E04A009B8CD6 /* StrokePath.swift */,
+				9C6F35EC2595F524009B8CD6 /* StrokePaths.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 				9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */,
 				9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */,
 				9C6F35F92596B519009B8CD6 /* AnnotationAttributeTransformer.swift */,
+				9C6F35FE25986B74009B8CD6 /* AnnotationView.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */,
 				9C70F904258A003800ADEFA9 /* DrawingPadController.swift in Sources */,
 				9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */,
+				9C6F35FF25986B74009B8CD6 /* AnnotationView.swift in Sources */,
 				9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */,
 				9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */,
 				9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */,
@@ -367,7 +371,7 @@
 				9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */,
 				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
 				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
-				9C6F35ED2595F524009B8CD6 /* Paths.swift in Sources */,
+				9C6F35ED2595F524009B8CD6 /* StrokePaths.swift in Sources */,
 				9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */,
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
 				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
@@ -379,7 +383,7 @@
 				9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
 				9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */,
-				9C6F35E52595E04A009B8CD6 /* Path.swift in Sources */,
+				9C6F35E52595E04A009B8CD6 /* StrokePath.swift in Sources */,
 				9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

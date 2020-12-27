@@ -17,7 +17,7 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     func makeUIViewController(context: Context) -> DrawingPadController {
-        var anonotationPaths: [Path] = []
+        var anonotationPaths: [StrokePath] = []
         if let annotation = photo.annotation {
             anonotationPaths = annotation.paths
         }
@@ -56,8 +56,8 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
         
-        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [Path]) {
-            parent.photo.annotation = Paths(paths: paths)
+        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [StrokePath]) {
+            parent.photo.annotation = StrokePaths(paths: paths)
             parent.saveContext()
             parent.presentationMode.wrappedValue.dismiss()
         }

@@ -1,5 +1,5 @@
 //
-//  Path.swift
+//  StrokePath.swift
 //  SiteInspectionBuddy
 //
 //  Created by Spencer Feng on 25/12/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class Path: NSObject, NSSecureCoding {
+public class StrokePath: NSObject, NSSecureCoding {
     public static var supportsSecureCoding = true
     
     let strokeColor: UIColor

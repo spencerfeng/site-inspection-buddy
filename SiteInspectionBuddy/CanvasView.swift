@@ -11,9 +11,9 @@ import UIKit
 class CanvasView: UIView {
     var strokeColor: UIColor
     var image: UIImage
-    var paths: [Path]
+    var paths: [StrokePath]
     
-    init(image: UIImage, strokeColor: UIColor, paths: [Path]) {
+    init(image: UIImage, strokeColor: UIColor, paths: [StrokePath]) {
         self.strokeColor = strokeColor
         self.image = image
         self.paths = paths
@@ -51,7 +51,7 @@ class CanvasView: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        paths.append(Path(strokeColor: strokeColor, points: []))
+        paths.append(StrokePath(strokeColor: strokeColor, points: []))
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

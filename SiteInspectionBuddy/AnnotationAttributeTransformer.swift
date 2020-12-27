@@ -9,7 +9,7 @@ import UIKit
 
 class AnnotationAttributeTransformer: NSSecureUnarchiveFromDataTransformer {
     override static var allowedTopLevelClasses: [AnyClass] {
-        [Paths.self]
+        [StrokePaths.self]
     }
     
     static func register() {

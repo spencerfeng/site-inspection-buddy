@@ -9,7 +9,7 @@ import UIKit
 
 protocol DrawingPadControllerDelegate: AnyObject {
     func drawingPadControllerWillDismiss(_ drawingPad: DrawingPadController)
-    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [Path])
+    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [StrokePath])
 }
 
 class DrawingPadController: UIViewController {
@@ -25,7 +25,7 @@ class DrawingPadController: UIViewController {
     var strokeColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(image: UIImage, strokeColor: UIColor, paths: [Path]) {
+    init(image: UIImage, strokeColor: UIColor, paths: [StrokePath]) {
         self.image = image
         self.strokeColor = strokeColor
         self.canvas = CanvasView(image: image, strokeColor: strokeColor, paths: paths)
