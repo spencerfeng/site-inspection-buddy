@@ -7,7 +7,9 @@
 
 import UIKit
 
-public class Path: NSObject, NSCoding {
+public class Path: NSObject, NSSecureCoding {
+    public static var supportsSecureCoding = true
+    
     let strokeColor: UIColor
     var points: [CGPoint]
     
@@ -22,8 +24,8 @@ public class Path: NSObject, NSCoding {
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
-        let mStrokeColor = aDecoder.decodeObject(forKey: Key.strokeColor.rawValue) as! UIColor
-        let mPointsStrArr = aDecoder.decodeObject(forKey: Key.points.rawValue) as! [String]
+        let mStrokeColor = aDecoder.decodeObject(of: UIColor.self, forKey: Key.strokeColor.rawValue)!
+        let mPointsStrArr = aDecoder.decodeObject(of: NSArray.self, forKey: Key.points.rawValue) as! [String]
         
         let mPoints = mPointsStrArr.map { NSCoder.cgPoint(for: $0) }
         

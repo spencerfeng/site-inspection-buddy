@@ -17,7 +17,12 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     func makeUIViewController(context: Context) -> DrawingPadController {
-        let drawingPad = DrawingPadController(image: image, strokeColor: strokeColor)
+        var anonotationPaths: [Path] = []
+        if let annotation = photo.annotation {
+            anonotationPaths = annotation.paths
+        }
+        
+        let drawingPad = DrawingPadController(image: image, strokeColor: strokeColor, paths: anonotationPaths)
         drawingPad.delegate = context.coordinator
         
         return drawingPad
@@ -51,16 +56,9 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
         
-        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, canvas: CanvasView) {
-            UIGraphicsBeginImageContextWithOptions(canvas.bounds.size, canvas.isOpaque, 0.0)
-            canvas.drawHierarchy(in: canvas.bounds, afterScreenUpdates: false)
-            let viewScreenshot = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            guard let imageWithMarkup = viewScreenshot else { return }
-            parent.photo.photoData = imageWithMarkup.jpegData(compressionQuality: 0.5)
+        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [Path]) {
+            parent.photo.annotation = Paths(paths: paths)
             parent.saveContext()
-            parent.image = imageWithMarkup
             parent.presentationMode.wrappedValue.dismiss()
         }
     }

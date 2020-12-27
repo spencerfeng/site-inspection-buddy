@@ -7,7 +7,9 @@
 
 import UIKit
 
-public class Paths: NSObject, NSCoding {
+public class Paths: NSObject, NSSecureCoding {
+    public static var supportsSecureCoding = true
+    
     public var paths: [Path] = []
     
     enum Key: String {
@@ -23,7 +25,7 @@ public class Paths: NSObject, NSCoding {
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
-        let mPaths = aDecoder.decodeObject(forKey: Key.paths.rawValue) as! [Path]
+        let mPaths = aDecoder.decodeObject(of: [NSArray.self, Path.self], forKey: Key.paths.rawValue) as! [Path]
         
         self.init(paths: mPaths)
     }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol DrawingPadControllerDelegate: AnyObject {
     func drawingPadControllerWillDismiss(_ drawingPad: DrawingPadController)
-    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, canvas: CanvasView)
+    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [Path])
 }
 
 class DrawingPadController: UIViewController {
@@ -25,10 +25,10 @@ class DrawingPadController: UIViewController {
     var strokeColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(image: UIImage, strokeColor: UIColor) {
+    init(image: UIImage, strokeColor: UIColor, paths: [Path]) {
         self.image = image
         self.strokeColor = strokeColor
-        self.canvas = CanvasView(image: image, strokeColor: strokeColor)
+        self.canvas = CanvasView(image: image, strokeColor: strokeColor, paths: paths)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -112,7 +112,7 @@ class DrawingPadController: UIViewController {
     @objc func handleDoneBtnClick() {
         guard let viewWithTag = self.view.viewWithTag(100) else { return } // TODO: do something if the canvas view can not be found
         guard let canvas = viewWithTag as? CanvasView else { return }
-        self.delegate?.drawingPadControllerWillSaveDrawing(self, canvas: canvas)
+        self.delegate?.drawingPadControllerWillSaveDrawing(self, paths: canvas.paths)
     }
     
     @objc func handleColorPickerBtnClicked() {

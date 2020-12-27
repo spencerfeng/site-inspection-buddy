@@ -11,12 +11,13 @@ import UIKit
 class CanvasView: UIView {
     var strokeColor: UIColor
     var image: UIImage
+    var paths: [Path]
     
-    var paths = [Path]()
-    
-    init(image: UIImage, strokeColor: UIColor) {
+    init(image: UIImage, strokeColor: UIColor, paths: [Path]) {
         self.strokeColor = strokeColor
         self.image = image
+        self.paths = paths
+        
         super.init(frame: CGRect.zero)
     }
     
