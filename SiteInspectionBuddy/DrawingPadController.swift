@@ -33,6 +33,8 @@ class DrawingPadController: UIViewController {
         self.canvas = CanvasView(annotationImage: annotationImage, strokeColor: strokeColor)
 
         super.init(nibName: nil, bundle: nil)
+        
+        self.canvas.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -103,6 +105,7 @@ class DrawingPadController: UIViewController {
         
         // undo button
         undoBtn.setImage(UIImage(systemName: "arrow.counterclockwise", withConfiguration: sfSymbolImageConfig), for: .normal)
+        undoBtn.isUserInteractionEnabled = false
         undoBtn.addTarget(self, action: #selector(handleUndoBtnClicked), for: .touchUpInside)
         let undoBarButtonItem = UIBarButtonItem(customView: undoBtn)
         
@@ -159,5 +162,13 @@ extension DrawingPadController: ColorOptionsControllerDelegate {
         colorPickerBtn.setImage(UIImage(systemName: "circle.fill", withConfiguration: sfSymbolImageConfig)?.withTintColor(strokeColor, renderingMode: .alwaysOriginal), for: .normal)
         canvas.strokeColor = strokeColor
         self.presentedViewController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension DrawingPadController: CanvasViewDelegate {
+    func canvasDidAddStroke(_ canvasView: CanvasView) {
+        if !undoBtn.isUserInteractionEnabled {
+            undoBtn.isUserInteractionEnabled = true
+        }
     }
 }

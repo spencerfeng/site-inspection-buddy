@@ -8,10 +8,16 @@
 import Foundation
 import UIKit
 
+protocol CanvasViewDelegate: AnyObject {
+    func canvasDidAddStroke(_ canvasView: CanvasView)
+}
+
 class CanvasView: UIView {
     var annotationImage: UIImage
     var strokeColor: UIColor
     var paths: [StrokePath] = []
+    
+    weak var delegate: CanvasViewDelegate?
     
     init(annotationImage: UIImage, strokeColor: UIColor) {
         self.annotationImage = annotationImage
@@ -63,6 +69,10 @@ class CanvasView: UIView {
         paths.append(lastPath)
         
         setNeedsDisplay()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.canvasDidAddStroke(self)
     }
     
     func undo() {
