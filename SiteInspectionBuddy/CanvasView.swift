@@ -10,15 +10,15 @@ import UIKit
 
 class CanvasView: UIView {
     var strokeColor: UIColor
-    var image: UIImage
     var paths: [StrokePath]
     
-    init(image: UIImage, strokeColor: UIColor, paths: [StrokePath]) {
+    init(strokeColor: UIColor, paths: [StrokePath]) {
         self.strokeColor = strokeColor
-        self.image = image
         self.paths = paths
         
         super.init(frame: CGRect.zero)
+        
+        self.isOpaque = false
     }
     
     required init?(coder: NSCoder) {
@@ -26,8 +26,6 @@ class CanvasView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        image.draw(in: rect)
-        
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }

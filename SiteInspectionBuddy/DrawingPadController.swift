@@ -28,7 +28,8 @@ class DrawingPadController: UIViewController {
     init(image: UIImage, strokeColor: UIColor, paths: [StrokePath]) {
         self.image = image
         self.strokeColor = strokeColor
-        self.canvas = CanvasView(image: image, strokeColor: strokeColor, paths: paths)
+        self.canvas = CanvasView(strokeColor: strokeColor, paths: paths)
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,6 +39,9 @@ class DrawingPadController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let width = view.bounds.width
+        let height = (image.size.height / image.size.width) * width
         
         // 1. add top navigation bar
         let navigationBar: UINavigationBar = UINavigationBar()
@@ -59,9 +63,18 @@ class DrawingPadController: UIViewController {
             navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
         
-        // 2. add image canvas
-        let width = view.bounds.width
-        let height = (image.size.height / image.size.width) * width
+        // 2. add background image
+        let bgImgView = UIImageView(image: image)
+        view.addSubview(bgImgView)
+        bgImgView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bgImgView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bgImgView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            bgImgView.widthAnchor.constraint(equalToConstant: width),
+            bgImgView.heightAnchor.constraint(equalToConstant: height)
+        ])
+        
+        // 3. add image canvas
         canvas.tag = 100
         canvas.isUserInteractionEnabled = true
         
@@ -75,7 +88,7 @@ class DrawingPadController: UIViewController {
             canvas.heightAnchor.constraint(equalToConstant: height)
         ])
         
-        // 3. add bottom toolbar
+        // 4. add bottom toolbar
         
         // for some reason, if we do not initialise UIToolbar with a frame with a width value, we will get auto layout constraint conflicts with its bar items. Related issue on stackoverflow: https://stackoverflow.com/questions/54284029/uitoolbar-with-uibarbuttonitem-layoutconstraint-issue
         let bottomToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
