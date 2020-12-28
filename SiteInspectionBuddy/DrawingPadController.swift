@@ -9,11 +9,12 @@ import UIKit
 
 protocol DrawingPadControllerDelegate: AnyObject {
     func drawingPadControllerWillDismiss(_ drawingPad: DrawingPadController)
-    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [StrokePath])
+    func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, canvas: CanvasView)
 }
 
 class DrawingPadController: UIViewController {
-    let image: UIImage
+    let backgroundImage: UIImage
+    let annotationImage: UIImage
     let sfSymbolImageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
     let colorPickerBtnImg = UIImage(systemName: "circle.fill")
     let undoBtnImg = UIImage(systemName: "arrow.counterclockwise")
@@ -25,10 +26,11 @@ class DrawingPadController: UIViewController {
     var strokeColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(image: UIImage, strokeColor: UIColor, paths: [StrokePath]) {
-        self.image = image
+    init(backgroundImage: UIImage, annotationImage: UIImage, strokeColor: UIColor) {
+        self.backgroundImage = backgroundImage
+        self.annotationImage = annotationImage
         self.strokeColor = strokeColor
-        self.canvas = CanvasView(strokeColor: strokeColor, paths: paths)
+        self.canvas = CanvasView(annotationImage: annotationImage, strokeColor: strokeColor)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,7 +43,7 @@ class DrawingPadController: UIViewController {
         super.viewDidLoad()
         
         let width = view.bounds.width
-        let height = (image.size.height / image.size.width) * width
+        let height = (backgroundImage.size.height / backgroundImage.size.width) * width
         
         // 1. add top navigation bar
         let navigationBar: UINavigationBar = UINavigationBar()
@@ -64,7 +66,7 @@ class DrawingPadController: UIViewController {
         ])
         
         // 2. add background image
-        let bgImgView = UIImageView(image: image)
+        let bgImgView = UIImageView(image: backgroundImage)
         view.addSubview(bgImgView)
         bgImgView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -125,7 +127,7 @@ class DrawingPadController: UIViewController {
     @objc func handleDoneBtnClick() {
         guard let viewWithTag = self.view.viewWithTag(100) else { return } // TODO: do something if the canvas view can not be found
         guard let canvas = viewWithTag as? CanvasView else { return }
-        self.delegate?.drawingPadControllerWillSaveDrawing(self, paths: canvas.paths)
+        self.delegate?.drawingPadControllerWillSaveDrawing(self, canvas: canvas)
     }
     
     @objc func handleColorPickerBtnClicked() {

@@ -9,7 +9,8 @@ import SwiftUI
 import UIKit
 
 struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
-    @Binding var image: UIImage
+    @Binding var backgroundImage: UIImage
+    @Binding var annotationImage: UIImage
     var strokeColor: UIColor
     let photo: Photo
     
@@ -17,12 +18,7 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     func makeUIViewController(context: Context) -> DrawingPadController {
-        var anonotationPaths: [StrokePath] = []
-        if let annotation = photo.annotation {
-            anonotationPaths = annotation.paths
-        }
-        
-        let drawingPad = DrawingPadController(image: image, strokeColor: strokeColor, paths: anonotationPaths)
+        let drawingPad = DrawingPadController(backgroundImage: backgroundImage, annotationImage: annotationImage, strokeColor: strokeColor)
         drawingPad.delegate = context.coordinator
         
         return drawingPad
@@ -56,9 +52,17 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
         
-        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, paths: [StrokePath]) {
-            parent.photo.annotation = StrokePaths(paths: paths)
+        func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, canvas: CanvasView) {
+            UIGraphicsBeginImageContextWithOptions(canvas.bounds.size, canvas.isOpaque, 0.0)
+            canvas.drawHierarchy(in: canvas.bounds, afterScreenUpdates: false)
+            let viewScreenshot = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            guard let annotation = viewScreenshot else { return }
+            parent.photo.annotationData = annotation.pngData()
+            parent.photo.updatedAt = Date()
             parent.saveContext()
+            parent.annotationImage = annotation
             parent.presentationMode.wrappedValue.dismiss()
         }
     }

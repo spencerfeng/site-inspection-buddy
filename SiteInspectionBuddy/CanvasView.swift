@@ -9,12 +9,13 @@ import Foundation
 import UIKit
 
 class CanvasView: UIView {
+    var annotationImage: UIImage
     var strokeColor: UIColor
-    var paths: [StrokePath]
+    var paths: [StrokePath] = []
     
-    init(strokeColor: UIColor, paths: [StrokePath]) {
+    init(annotationImage: UIImage, strokeColor: UIColor) {
+        self.annotationImage = annotationImage
         self.strokeColor = strokeColor
-        self.paths = paths
         
         super.init(frame: CGRect.zero)
         
@@ -26,6 +27,8 @@ class CanvasView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        annotationImage.draw(in: rect)
+        
         guard let context = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -55,7 +58,7 @@ class CanvasView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         
-        guard let lastPath = paths.popLast() else { return }
+        guard var lastPath = paths.popLast() else { return }
         lastPath.points.append(point)
         paths.append(lastPath)
         

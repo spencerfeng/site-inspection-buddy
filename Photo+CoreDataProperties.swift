@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  SiteInspectionBuddy
 //
-//  Created by Spencer Feng on 25/12/20.
+//  Created by Spencer Feng on 28/12/20.
 //
 //
 
@@ -20,7 +20,7 @@ extension Photo {
     @NSManaged public var id: UUID?
     @NSManaged public var photoData: Data?
     @NSManaged public var updatedAt: Date?
-    @NSManaged public var annotation: StrokePaths?
+    @NSManaged public var annotationData: Data?
     @NSManaged public var issue: Issue?
 
 }
