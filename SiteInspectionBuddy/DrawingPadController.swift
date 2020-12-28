@@ -143,7 +143,7 @@ class DrawingPadController: UIViewController {
     }
     
     @objc func handleUndoBtnClicked() {
-        print("undo button clicked")
+        canvas.undo()
     }
 }
 

@@ -64,5 +64,10 @@ class CanvasView: UIView {
         
         setNeedsDisplay()
     }
+    
+    func undo() {
+        let _ = paths.popLast()
+        setNeedsDisplay()
+    }
 }
 
