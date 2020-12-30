@@ -109,7 +109,7 @@ struct IssueDetails: View {
                 }
                 .isEmpty(backgroundImage == nil)
                 .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
-                    DrawingPadControllerRepresentation(backgroundImage: backgroundImage ?? UIImage(), annotationImage: $annotationImage, strokeColor: Constants.DRAWING_DEFAULT_COLOR, photo: self.issue.firstPhoto!)
+                    DrawingPadControllerRepresentation(backgroundImage: backgroundImage ?? UIImage(), annotationImage: $annotationImage, strokeColor: Constants.DRAWING_DEFAULT_COLOR, photo: self.issue.photosArray[0])
                 })
             }
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))

@@ -32,11 +32,6 @@ extension Issue {
             $0.createdAt! < $1.createdAt!
         }
     }
-    
-    public var firstPhoto: Photo? {
-        if photosArray.count <= 0 { return nil }
-        return photosArray[0]
-    }
 }
 
 // MARK: Generated accessors for photos

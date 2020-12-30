@@ -35,11 +35,13 @@ struct ProjectIssuesListItem: View {
         }
         .onAppear {
             if (featuredImage == nil) {
-                guard let photoData = issue.firstPhoto?.photoData else { return }
-                guard let updatedFeaturedImage = UIImage(data: photoData) else { return }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    featuredImage = updatedFeaturedImage
+                if (issue.photosArray.count > 0) {
+                    guard let photoData = issue.photosArray[0].photoData else { return }
+                    guard let updatedFeaturedImage = UIImage(data: photoData) else { return }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        featuredImage = updatedFeaturedImage
+                    }
                 }
             }
         }
