@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
-    @Binding var backgroundImage: UIImage
+    var backgroundImage: UIImage
     @Binding var annotationImage: UIImage
     var strokeColor: UIColor
     let photo: Photo

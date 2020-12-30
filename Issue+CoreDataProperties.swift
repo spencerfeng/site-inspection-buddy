@@ -33,12 +33,8 @@ extension Issue {
         }
     }
     
-    public var hasPhotos: Bool {
-        return photosArray.count > 0
-    }
-    
     public var firstPhoto: Photo? {
-        if !hasPhotos { return nil }
+        if photosArray.count <= 0 { return nil }
         return photosArray[0]
     }
 }

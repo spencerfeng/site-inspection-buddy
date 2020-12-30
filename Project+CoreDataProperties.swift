@@ -24,6 +24,13 @@ extension Project {
     @NSManaged public var id: UUID?
     @NSManaged public var issues: NSSet?
 
+    public var issuesArray: [Issue] {
+        let set = issues as? Set<Issue> ?? []
+        
+        return set.sorted {
+            $0.createdAt! < $1.createdAt!
+        }
+    }
 }
 
 // MARK: Generated accessors for issues
