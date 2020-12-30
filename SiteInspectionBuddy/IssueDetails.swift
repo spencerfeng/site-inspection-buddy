@@ -9,15 +9,12 @@ import SwiftUI
 
 struct IssueDetails: View {
     var issue: Issue
-    
-    var hasPhotos: Bool {
-        return issue.photosArray.count > 0
-    }
+    @Binding var backgroundImage: UIImage?
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State private var isShowPhotoLibrary = false
-    @State private var currentImage = UIImage()
+    @State private var annotationImage = UIImage()
     @State private var isShowPhotoEditor = false
     
     var body: some View {
@@ -47,11 +44,11 @@ struct IssueDetails: View {
                         }
                     }
                 }
-                .isEmpty(hasPhotos)
+                .isEmpty(backgroundImage != nil)
                 .frame(width: geometry.size.width, height: 300, alignment: .center)
                 .sheet(isPresented: $isShowPhotoLibrary) {
                     ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
-                        self.currentImage = image
+                        self.backgroundImage = image
                         
                         let newPhoto = Photo(context: managedObjectContext)
                         let now = Date()
@@ -66,14 +63,19 @@ struct IssueDetails: View {
                 }
                 
                 ZStack {
-                    Image(uiImage: currentImage)
+                    Image(uiImage: backgroundImage ?? UIImage())
                         .resizable()
                         .scaledToFit()
                         .frame(width: geometry.size.width, height: 300, alignment: .center)
                         .clipped()
+                        .overlay(Image(uiImage: annotationImage).resizable().scaledToFit())
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                currentImage = UIImage(data: issue.photosArray[0].photoData!)!
+                                if let annotationData = issue.photosArray[0].annotationData {
+                                    if let imgFromAnnotationData = UIImage(data: annotationData) {
+                                        annotationImage = imgFromAnnotationData
+                                    }
+                                }
                             }
                         }
                     HStack {
@@ -89,7 +91,12 @@ struct IssueDetails: View {
                         Button(action: {
                             if (issue.photosArray.count > 0) {
                                 managedObjectContext.delete(issue.photosArray[0])
-                                currentImage = UIImage()
+                                saveContext()
+                                
+                                // TODO: what if deleting this photo from Core Data failed
+                                backgroundImage = UIImage()
+                                annotationImage = UIImage()
+                                
                             }
                         }) {
                             Image(systemName: "trash")
@@ -100,9 +107,9 @@ struct IssueDetails: View {
                         }
                     }
                 }
-                .isEmpty(!hasPhotos)
+                .isEmpty(backgroundImage == nil)
                 .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
-                    IssuePhotoEditor(image: $currentImage)
+                    DrawingPadControllerRepresentation(backgroundImage: backgroundImage ?? UIImage(), annotationImage: $annotationImage, strokeColor: Constants.DRAWING_DEFAULT_COLOR, photo: self.issue.firstPhoto!)
                 })
             }
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))

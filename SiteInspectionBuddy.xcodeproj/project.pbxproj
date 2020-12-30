@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */; };
+		9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */; };
+		9C6F35E52595E04A009B8CD6 /* StrokePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F35E42595E04A009B8CD6 /* StrokePath.swift */; };
 		9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E4258460E500ADEFA9 /* CanvasView.swift */; };
 		9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */; };
-		9C70F8F42585DA9800ADEFA9 /* DrawingPadRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */; };
+		9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */; };
+		9C70F904258A003800ADEFA9 /* DrawingPadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C70F903258A003800ADEFA9 /* DrawingPadController.swift */; };
 		9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCCF25734F330084CC35 /* AppDelegate.swift */; };
 		9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCD125734F330084CC35 /* SceneDelegate.swift */; };
 		9C75CCD425734F330084CC35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CCD325734F330084CC35 /* ContentView.swift */; };
@@ -23,8 +27,6 @@
 		9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */; };
 		9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */; };
 		9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */; };
-		9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */; };
-		9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */; };
 		9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD2E257395D40084CC35 /* ProjectsList.swift */; };
 		9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD3325739A880084CC35 /* ProjectDetails.swift */; };
 		9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */; };
@@ -35,7 +37,9 @@
 		9C75CD52257B88AF0084CC35 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD51257B88AF0084CC35 /* View+Extensions.swift */; };
 		9C75CD5A257C61650084CC35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD59257C61650084CC35 /* Constants.swift */; };
 		9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75CD5E257CA6780084CC35 /* ImagePicker.swift */; };
-		9C7D13C025822E610044CE3F /* IssuePhotoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */; };
+		9C7921DE25998BB300B3D0F5 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7921DC25998BB300B3D0F5 /* Photo+CoreDataClass.swift */; };
+		9C7921DF25998BB300B3D0F5 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7921DD25998BB300B3D0F5 /* Photo+CoreDataProperties.swift */; };
+		9C7921F2259C231600B3D0F5 /* ProjectIssuesListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7921F1259C231600B3D0F5 /* ProjectIssuesListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +60,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionsController.swift; sourceTree = "<group>"; };
+		9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidColoredCircleButton.swift; sourceTree = "<group>"; };
+		9C6F35E42595E04A009B8CD6 /* StrokePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokePath.swift; sourceTree = "<group>"; };
 		9C70F8E4258460E500ADEFA9 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedColor.swift; sourceTree = "<group>"; };
-		9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadRepresentation.swift; sourceTree = "<group>"; };
+		9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadControllerRepresentation.swift; sourceTree = "<group>"; };
+		9C70F903258A003800ADEFA9 /* DrawingPadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPadController.swift; sourceTree = "<group>"; };
 		9C75CCCC25734F330084CC35 /* SiteInspectionBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiteInspectionBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C75CCCF25734F330084CC35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C75CCD125734F330084CC35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,8 +86,6 @@
 		9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C75CD2E257395D40084CC35 /* ProjectsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsList.swift; sourceTree = "<group>"; };
 		9C75CD3325739A880084CC35 /* ProjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetails.swift; sourceTree = "<group>"; };
 		9C75CD382573A3900084CC35 /* DateFormatter+Variants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Variants.swift"; sourceTree = "<group>"; };
@@ -90,7 +96,9 @@
 		9C75CD51257B88AF0084CC35 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		9C75CD59257C61650084CC35 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C75CD5E257CA6780084CC35 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuePhotoEditor.swift; sourceTree = "<group>"; };
+		9C7921DC25998BB300B3D0F5 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C7921DD25998BB300B3D0F5 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C7921F1259C231600B3D0F5 /* ProjectIssuesListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectIssuesListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,15 +126,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C6F35E32595E026009B8CD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C6F35E42595E04A009B8CD6 /* StrokePath.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		9C75CCC325734F330084CC35 = {
 			isa = PBXGroup;
 			children = (
+				9C7921DC25998BB300B3D0F5 /* Photo+CoreDataClass.swift */,
+				9C7921DD25998BB300B3D0F5 /* Photo+CoreDataProperties.swift */,
 				9C75CD17257371200084CC35 /* Issue+CoreDataClass.swift */,
 				9C75CD18257371200084CC35 /* Issue+CoreDataProperties.swift */,
 				9C75CD19257371200084CC35 /* Project+CoreDataClass.swift */,
 				9C75CD1A257371200084CC35 /* Project+CoreDataProperties.swift */,
-				9C75CD1B257371200084CC35 /* Photo+CoreDataClass.swift */,
-				9C75CD1C257371200084CC35 /* Photo+CoreDataProperties.swift */,
 				9C75CCCE25734F330084CC35 /* SiteInspectionBuddy */,
 				9C75CCE825734F350084CC35 /* SiteInspectionBuddyTests */,
 				9C75CCF325734F350084CC35 /* SiteInspectionBuddyUITests */,
@@ -147,6 +163,7 @@
 		9C75CCCE25734F330084CC35 /* SiteInspectionBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				9C6F35E32595E026009B8CD6 /* Models */,
 				9C75CCCF25734F330084CC35 /* AppDelegate.swift */,
 				9C75CCD125734F330084CC35 /* SceneDelegate.swift */,
 				9C75CCD325734F330084CC35 /* ContentView.swift */,
@@ -165,10 +182,13 @@
 				9C75CD51257B88AF0084CC35 /* View+Extensions.swift */,
 				9C75CD59257C61650084CC35 /* Constants.swift */,
 				9C75CD5E257CA6780084CC35 /* ImagePicker.swift */,
-				9C7D13BF25822E610044CE3F /* IssuePhotoEditor.swift */,
 				9C70F8E4258460E500ADEFA9 /* CanvasView.swift */,
 				9C70F8E9258480EA00ADEFA9 /* PickedColor.swift */,
-				9C70F8F32585DA9800ADEFA9 /* DrawingPadRepresentation.swift */,
+				9C70F8FE2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift */,
+				9C70F903258A003800ADEFA9 /* DrawingPadController.swift */,
+				9C6F35CE259317B8009B8CD6 /* ColorOptionsController.swift */,
+				9C6F35DE259440DC009B8CD6 /* SolidColoredCircleButton.swift */,
+				9C7921F1259C231600B3D0F5 /* ProjectIssuesListItem.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -331,27 +351,31 @@
 			files = (
 				9C75CD52257B88AF0084CC35 /* View+Extensions.swift in Sources */,
 				9C75CD5A257C61650084CC35 /* Constants.swift in Sources */,
+				9C70F8FF2589FF0C00ADEFA9 /* DrawingPadControllerRepresentation.swift in Sources */,
 				9C75CCD025734F330084CC35 /* AppDelegate.swift in Sources */,
+				9C70F904258A003800ADEFA9 /* DrawingPadController.swift in Sources */,
 				9C75CD1D257371200084CC35 /* Issue+CoreDataClass.swift in Sources */,
 				9C75CD20257371200084CC35 /* Project+CoreDataProperties.swift in Sources */,
 				9C75CCD225734F330084CC35 /* SceneDelegate.swift in Sources */,
 				9C75CD3425739A880084CC35 /* ProjectDetails.swift in Sources */,
 				9C75CD392573A3900084CC35 /* DateFormatter+Variants.swift in Sources */,
 				9C75CD1F257371200084CC35 /* Project+CoreDataClass.swift in Sources */,
-				9C7D13C025822E610044CE3F /* IssuePhotoEditor.swift in Sources */,
 				9C70F8E5258460E500ADEFA9 /* CanvasView.swift in Sources */,
-				9C70F8F42585DA9800ADEFA9 /* DrawingPadRepresentation.swift in Sources */,
+				9C7921F2259C231600B3D0F5 /* ProjectIssuesListItem.swift in Sources */,
 				9C75CD1E257371200084CC35 /* Issue+CoreDataProperties.swift in Sources */,
-				9C75CD21257371200084CC35 /* Photo+CoreDataClass.swift in Sources */,
 				9C70F8EA258480EA00ADEFA9 /* PickedColor.swift in Sources */,
 				9C75CCD725734F330084CC35 /* SiteInspectionBuddy.xcdatamodeld in Sources */,
-				9C75CD22257371200084CC35 /* Photo+CoreDataProperties.swift in Sources */,
 				9C75CD4D257B84820084CC35 /* EmptyModifier.swift in Sources */,
+				9C6F35DF259440DC009B8CD6 /* SolidColoredCircleButton.swift in Sources */,
 				9C75CD3E2574D9930084CC35 /* ProjectInfo.swift in Sources */,
 				9C75CD48257AFF4D0084CC35 /* IssueDetails.swift in Sources */,
 				9C75CCD425734F330084CC35 /* ContentView.swift in Sources */,
+				9C7921DE25998BB300B3D0F5 /* Photo+CoreDataClass.swift in Sources */,
 				9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
+				9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */,
+				9C6F35E52595E04A009B8CD6 /* StrokePath.swift in Sources */,
+				9C7921DF25998BB300B3D0F5 /* Photo+CoreDataProperties.swift in Sources */,
 				9C75CD43257A4E930084CC35 /* ProjectIssuesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

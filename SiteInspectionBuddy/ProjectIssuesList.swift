@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectIssuesList: View {
-    var project: Project
+    @ObservedObject var project: Project
     
     @State var selectedIssueId: UUID? = nil
     
@@ -27,15 +27,7 @@ struct ProjectIssuesList: View {
     var body: some View {
         List {
             ForEach(issues, id: \.id) { issue in
-                NavigationLink(
-                    destination: IssueDetails(issue: issue),
-                    tag: issue.id!,
-                    selection: $selectedIssueId
-                ) {
-                    Button(issue.title!) {
-                        self.selectedIssueId = issue.id
-                    }
-                }
+                ProjectIssuesListItem(issue: issue, selectedIssueId: $selectedIssueId)
                 .listRowBackground(self.selectedIssueId == issue.id ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
             }
         }
