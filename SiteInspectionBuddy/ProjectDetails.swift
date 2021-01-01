@@ -22,6 +22,7 @@ struct ProjectDetails: View {
     var body: some View {
         let EDIT_PROJECT_INFO = "Edit Project Info"
         let EDIT_PROJECT_ISSUES = "Edit Project Issues"
+        let GENERATE_REPORT = "Generate Report"
         
         List {
             Section {
@@ -58,6 +59,24 @@ struct ProjectDetails: View {
                     }
                 }
                 .listRowBackground(self.selectedListItem == EDIT_PROJECT_ISSUES ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
+            }
+            
+            Section {
+                NavigationLink(
+                    destination: ReportControllerRepresentation(project: project),
+                    tag: GENERATE_REPORT,
+                    selection: $selectedListItem
+                ) {
+                    Button(action: {
+                        self.selectedListItem = GENERATE_REPORT
+                    }) {
+                        HStack {
+                            Image(systemName: "doc.richtext").foregroundColor(.black)
+                            Text(GENERATE_REPORT).foregroundColor(.black)
+                        }
+                    }
+                }
+                .listRowBackground(self.selectedListItem == EDIT_PROJECT_INFO ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
             }
         }
         .onDisappear {
