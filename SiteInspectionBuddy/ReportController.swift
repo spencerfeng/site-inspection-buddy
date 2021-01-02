@@ -13,6 +13,13 @@ class ReportController: UIViewController {
     let project: Project
     let pdfView: PDFView
     
+    let pageWidth = CGFloat(8.5 * 72.0)
+    let pageHeight = CGFloat(11 * 72.0)
+    
+    lazy var pdfContentWidth: CGFloat = {
+        return pageWidth - 2 * Constants.PDF_HORIZONTAL_PADDING
+    }()
+    
     init(project: Project) {
         self.project = project
         self.pdfView = PDFView()
@@ -76,30 +83,71 @@ class ReportController: UIViewController {
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
         
-        let pageWidth = 8.5 * 72.0
-        let pageHeight = 11 * 72.0
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
         
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
         let data = renderer.pdfData { context in
-            context.beginPage()
+            let drawContext = context.cgContext
             
-            var attributes = [
+            // draw cover page
+            context.beginPage()
+            var currentY = drawReportTitle()
+            currentY = drawHorizontalLine(drawContext, startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), endAt: CGPoint(x: pageWidth - Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), thickness: 5, color: UIColor(.blue).cgColor)
+            
+            // draw issues
+            context.beginPage()
+            let attributes = [
                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 72)
             ]
-            var text = "First Page"
-            text.draw(at: CGPoint(x: 0, y: 0), withAttributes: attributes)
-            
-            context.beginPage()
-            
-            attributes = [
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 72)
-            ]
-            text = "Second Page"
+            let text = "Second Page"
             text.draw(at: CGPoint(x: 0, y: 0), withAttributes: attributes)
         }
         
         return data
+    }
+    
+    func drawReportTitle() -> CGFloat {
+        let titleFont = UIFont.systemFont(ofSize: Constants.PDF_REPORT_TITLE_FONT_SIZE, weight: .bold)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .natural
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        let titleAttributes = [
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.font: titleFont
+        ]
+        let attributedTitle = NSAttributedString(
+            string: project.title ?? "",
+            attributes: titleAttributes
+        )
+        let titleStringSize = attributedTitle.size()
+        let titleStringRect = CGRect(
+            x: Constants.PDF_HORIZONTAL_PADDING,
+            y: pageHeight / 2.0,
+            width: pdfContentWidth,
+            height: getTextRectHeight(textWidth: titleStringSize.width, textHeight: titleStringSize.height, rectWidth: pdfContentWidth)
+        )
+        
+        attributedTitle.draw(in: titleStringRect)
+        
+        
+        
+        return titleStringRect.origin.y + titleStringRect.height
+    }
+    
+    func getTextRectHeight(textWidth: CGFloat, textHeight: CGFloat, rectWidth: CGFloat) -> CGFloat {
+        return ceil(textWidth / rectWidth) * textHeight
+    }
+    
+    func drawHorizontalLine(_ drawCtx: CGContext, startAt: CGPoint, endAt: CGPoint, thickness: CGFloat, color: CGColor) -> CGFloat {
+        drawCtx.saveGState()
+        drawCtx.setLineWidth(thickness)
+        drawCtx.setStrokeColor(color)
+        drawCtx.move(to: startAt)
+        drawCtx.addLine(to: endAt)
+        drawCtx.strokePath()
+        drawCtx.restoreGState()
+        
+        return startAt.y + thickness
     }
 }

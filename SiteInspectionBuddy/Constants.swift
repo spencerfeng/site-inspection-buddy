@@ -16,4 +16,7 @@ struct Constants {
     static let POPOVER_ARROW_HEIGHT: CGFloat = 12
     
     static let DRAWING_DEFAULT_COLOR: UIColor = UIColor(.yellow)
+    
+    static let PDF_HORIZONTAL_PADDING: CGFloat = 0.5 * 72
+    static let PDF_REPORT_TITLE_FONT_SIZE: CGFloat = 40
 }
