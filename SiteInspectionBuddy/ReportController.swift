@@ -13,11 +13,11 @@ class ReportController: UIViewController {
     let project: Project
     let pdfView: PDFView
     
-    let pageWidth = CGFloat(8.5 * 72.0)
-    let pageHeight = CGFloat(11 * 72.0)
+    let pdfWidth = CGFloat(8.5 * 72.0)
+    let pdfHeight = CGFloat(11 * 72.0)
     
     lazy var pdfContentWidth: CGFloat = {
-        return pageWidth - 2 * Constants.PDF_HORIZONTAL_PADDING
+        return pdfWidth - 2 * Constants.PDF_HORIZONTAL_PADDING
     }()
     
     init(project: Project) {
@@ -83,7 +83,7 @@ class ReportController: UIViewController {
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
         
-        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+        let pageRect = CGRect(x: 0, y: 0, width: pdfWidth, height: pdfHeight)
         
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
@@ -93,7 +93,7 @@ class ReportController: UIViewController {
             // draw cover page
             context.beginPage()
             var currentY = drawReportTitle()
-            currentY = drawHorizontalLine(drawContext, startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), endAt: CGPoint(x: pageWidth - Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), thickness: 5, color: UIColor(.blue).cgColor)
+            currentY = drawHorizontalLine(drawContext, startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), endAt: CGPoint(x: pdfWidth - Constants.PDF_HORIZONTAL_PADDING, y: currentY + Constants.DEFAULT_MARGIN), thickness: 5, color: UIColor(.blue).cgColor)
             
             // draw issues
             context.beginPage()
@@ -123,7 +123,7 @@ class ReportController: UIViewController {
         let titleStringSize = attributedTitle.size()
         let titleStringRect = CGRect(
             x: Constants.PDF_HORIZONTAL_PADDING,
-            y: pageHeight / 2.0,
+            y: pdfHeight / 2.0,
             width: pdfContentWidth,
             height: getTextRectHeight(textWidth: titleStringSize.width, textHeight: titleStringSize.height, rectWidth: pdfContentWidth)
         )
