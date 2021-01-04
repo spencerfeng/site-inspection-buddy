@@ -18,5 +18,9 @@ struct Constants {
     static let DRAWING_DEFAULT_COLOR: UIColor = UIColor(.yellow)
     
     static let PDF_HORIZONTAL_PADDING: CGFloat = 0.5 * 72
+    static let PDF_VERTICAL_PADDING: CGFloat = 0.5 * 72
     static let PDF_REPORT_TITLE_FONT_SIZE: CGFloat = 40
+    static let PDF_ISSUE_TITLE_FONT_SIZE: CGFloat = 26
+    static let PDF_ISSUE_BODY_FONT_SIZE: CGFloat = 10
+    static let PDF_ISSUE_ITEM_SPACING: CGFloat = 32
 }
