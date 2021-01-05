@@ -336,7 +336,7 @@ class ReportController: UIViewController {
                 framesetter,
                 currentRange,
                 nil,
-                CGSize(width: pdfContentWidth * 0.65, height: pdfContentHeight),
+                CGSize(width: initialRect.width, height: pdfContentHeight),
                 nil
             )
             
