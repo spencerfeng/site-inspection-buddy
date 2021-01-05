@@ -136,7 +136,7 @@ class ReportController: UIViewController {
                     fontSize: Constants.PDF_ISSUE_ASSIGNEE_FONT_SIZE,
                     color: UIColor(.gray),
                     weight: .regular,
-                    at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height),
+                    at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + 0.5 * Constants.DEFAULT_MARGIN),
                     withWidth: pdfContentWidth
                 )
                 
