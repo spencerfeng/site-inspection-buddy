@@ -129,8 +129,42 @@ class ReportController: UIViewController {
                     )
                 }
                 
+                // prepare drawing issue assignee
+                var issueAssigneeTextRect = prepareDrawingText(
+                    text: issue.assignee != nil ? "Assigned to: \(issue.assignee!)" : "",
+                    fontSize: Constants.PDF_ISSUE_ASSIGNEE_FONT_SIZE,
+                    weight: .regular,
+                    at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height),
+                    withWidth: pdfContentWidth
+                )
+                
+                if issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                    // start a new page if assignee is at the very bottom of a page
+                    context.beginPage()
+                    
+                    issueTitleTextRect = (
+                        text: issueTitleTextRect.text,
+                        rect: CGRect(
+                            x: issueTitleTextRect.rect.origin.x,
+                            y: Constants.PDF_VERTICAL_PADDING,
+                            width: issueTitleTextRect.rect.width,
+                            height: issueTitleTextRect.rect.height
+                        )
+                    )
+                    
+                    issueAssigneeTextRect = (
+                        text: issueAssigneeTextRect.text,
+                        rect: CGRect(
+                            x: issueAssigneeTextRect.rect.origin.x,
+                            y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height,
+                            width: issueAssigneeTextRect.rect.width,
+                            height: issueAssigneeTextRect.rect.height
+                        )
+                    )
+                }
+                
                 var issueTitleSeparatorBottomY = prepareDrawingHorizontalLine(
-                    startY: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN,
+                    startY: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN,
                     thickness: 5
                 )
                 
@@ -148,8 +182,18 @@ class ReportController: UIViewController {
                         )
                     )
                     
+                    issueAssigneeTextRect = (
+                        text: issueAssigneeTextRect.text,
+                        rect: CGRect(
+                            x: issueAssigneeTextRect.rect.origin.x,
+                            y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height,
+                            width: issueAssigneeTextRect.rect.width,
+                            height: issueAssigneeTextRect.rect.height
+                        )
+                    )
+                    
                     issueTitleSeparatorBottomY = prepareDrawingHorizontalLine(
-                        startY: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN,
+                        startY: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN,
                         thickness: 5
                     )
                 }
@@ -177,8 +221,18 @@ class ReportController: UIViewController {
                             )
                         )
                         
+                        issueAssigneeTextRect = (
+                            text: issueAssigneeTextRect.text,
+                            rect: CGRect(
+                                x: issueAssigneeTextRect.rect.origin.x,
+                                y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height,
+                                width: issueAssigneeTextRect.rect.width,
+                                height: issueAssigneeTextRect.rect.height
+                            )
+                        )
+                        
                         issueTitleSeparatorBottomY = prepareDrawingHorizontalLine(
-                            startY: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN,
+                            startY: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN,
                             thickness: 5
                         )
                         
@@ -191,11 +245,13 @@ class ReportController: UIViewController {
                     
                     // draw issue title
                     drawTextInRect(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
+                    // draw issue assignee
+                    drawTextInRect(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
                     // draow issue title separator
                     let _ = drawHorizontalLine(
                         drawContext,
-                        startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN),
-                        endAt: CGPoint(x: pdfWidth - Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN),
+                        startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN),
+                        endAt: CGPoint(x: pdfWidth - Constants.PDF_HORIZONTAL_PADDING, y: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN),
                         thickness: 5,
                         color: UIColor(.blue).cgColor
                     )
@@ -228,11 +284,13 @@ class ReportController: UIViewController {
                     // This issue does not have a photo
                     // draw issue title
                     drawTextInRect(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
+                    // draw issue assignee
+                    drawTextInRect(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
                     // draow issue title separator
                     let _ = drawHorizontalLine(
                         drawContext,
-                        startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN),
-                        endAt: CGPoint(x: pdfWidth - Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN),
+                        startAt: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN),
+                        endAt: CGPoint(x: pdfWidth - Constants.PDF_HORIZONTAL_PADDING, y: issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + Constants.DEFAULT_MARGIN),
                         thickness: 5,
                         color: UIColor(.blue).cgColor
                     )
