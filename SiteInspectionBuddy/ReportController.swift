@@ -229,7 +229,21 @@ class ReportController: UIViewController {
                         thickness: 5,
                         color: UIColor(.blue).cgColor
                     )
-                    lastY = issueTitleSeparatorBottomY
+                    // draw issue comment
+                    let infoOfAddedText = addComment(
+                        issue.comment ?? "",
+                        context: context,
+                        in: CGRect(
+                            x: Constants.PDF_HORIZONTAL_PADDING,
+                            // TODO: write an article about this: why we need to negate it.
+                            y: -(issueTitleSeparatorBottomY + Constants.DEFAULT_MARGIN),
+                            width: pdfContentWidth,
+                            height: pdfContentHeight - (issueTitleSeparatorBottomY + Constants.DEFAULT_MARGIN)
+                        ),
+                        fromY: issueTitleSeparatorBottomY + Constants.DEFAULT_MARGIN
+                    )
+                    
+                    lastY = infoOfAddedText.textBottom
                 }
             }
         }
