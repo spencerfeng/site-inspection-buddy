@@ -109,6 +109,7 @@ class ReportController: UIViewController {
                 var issueTitleTextRect = prepareDrawingText(
                     text: issue.title ?? "",
                     fontSize: Constants.PDF_ISSUE_TITLE_FONT_SIZE,
+                    color: UIColor(.black),
                     weight: .bold,
                     at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: lastY == Constants.PDF_VERTICAL_PADDING ? lastY : lastY + Constants.PDF_ISSUE_ITEM_SPACING),
                     withWidth: pdfContentWidth
@@ -133,6 +134,7 @@ class ReportController: UIViewController {
                 var issueAssigneeTextRect = prepareDrawingText(
                     text: issue.assignee != nil ? "Assigned to: \(issue.assignee!)" : "",
                     fontSize: Constants.PDF_ISSUE_ASSIGNEE_FONT_SIZE,
+                    color: UIColor(.gray),
                     weight: .regular,
                     at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height),
                     withWidth: pdfContentWidth
@@ -346,14 +348,15 @@ class ReportController: UIViewController {
         return ceil(textWidth / rectWidth) * textHeight
     }
     
-    func prepareDrawingText(text: String, fontSize: CGFloat, weight: UIFont.Weight, at: CGPoint, withWidth: CGFloat) -> (text: NSAttributedString, rect: CGRect) {
+    func prepareDrawingText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight, at: CGPoint, withWidth: CGFloat) -> (text: NSAttributedString, rect: CGRect) {
         let textFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .natural
         paragraphStyle.lineBreakMode = .byWordWrapping
         let textAttributes = [
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
-            NSAttributedString.Key.font: textFont
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: color
         ]
         let attributedText = NSAttributedString(
             string: text,
