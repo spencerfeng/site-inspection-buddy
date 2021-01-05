@@ -103,6 +103,8 @@ class ReportController: UIViewController {
             lastY = Constants.PDF_VERTICAL_PADDING
             
             for issue in project.issuesArray.reversed() {
+                // we make sure that title, separator and image (if there is one) are display on the same page
+                
                 // prepare drawing issue title
                 var issueTitleTextRect = prepareDrawingText(
                     text: issue.title ?? "",
@@ -112,10 +114,39 @@ class ReportController: UIViewController {
                     withWidth: pdfContentWidth
                 )
                 
+                if issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                    issueTitleTextRect = (
+                        text: issueTitleTextRect.text,
+                        rect: CGRect(
+                            x: issueTitleTextRect.rect.origin.x,
+                            y: Constants.PDF_VERTICAL_PADDING,
+                            width: issueTitleTextRect.rect.width,
+                            height: issueTitleTextRect.rect.height
+                        )
+                    )
+                }
+                
                 var issueTitleSeparatorBottomY = prepareDrawingHorizontalLine(
                     startY: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN,
                     thickness: 5
                 )
+                
+                if issueTitleSeparatorBottomY + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                    issueTitleTextRect = (
+                        text: issueTitleTextRect.text,
+                        rect: CGRect(
+                            x: issueTitleTextRect.rect.origin.x,
+                            y: Constants.PDF_VERTICAL_PADDING,
+                            width: issueTitleTextRect.rect.width,
+                            height: issueTitleTextRect.rect.height
+                        )
+                    )
+                    
+                    issueTitleSeparatorBottomY = prepareDrawingHorizontalLine(
+                        startY: issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + Constants.DEFAULT_MARGIN,
+                        thickness: 5
+                    )
+                }
                 
                 if let issuePhoto = issue.firstPhoto {
                     // this isssue has a photo
