@@ -115,6 +115,9 @@ class ReportController: UIViewController {
                 )
                 
                 if issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                    // start a new page if title is at the very bottom of a page
+                    context.beginPage()
+                    
                     issueTitleTextRect = (
                         text: issueTitleTextRect.text,
                         rect: CGRect(
@@ -132,6 +135,9 @@ class ReportController: UIViewController {
                 )
                 
                 if issueTitleSeparatorBottomY + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                    // start a new page if issue title separator is at the very bottom of a page
+                    context.beginPage()
+                    
                     issueTitleTextRect = (
                         text: issueTitleTextRect.text,
                         rect: CGRect(
@@ -158,6 +164,7 @@ class ReportController: UIViewController {
                     
                     // if the image can not fit in this page, we start a new page
                     if issuePhotoDrawingRect.origin.y + issuePhotoDrawingRect.height > pdfHeight - Constants.PDF_VERTICAL_PADDING {
+                        // start a new page if issue photo is at the very bottom of a page
                         context.beginPage()
                         
                         issueTitleTextRect = (
