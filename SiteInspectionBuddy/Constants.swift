@@ -24,4 +24,5 @@ struct Constants {
     static let PDF_ISSUE_ASSIGNEE_FONT_SIZE: CGFloat = 15
     static let PDF_ISSUE_BODY_FONT_SIZE: CGFloat = 10
     static let PDF_ISSUE_ITEM_SPACING: CGFloat = 32
+    static let PDF_PAGE_NUMBER_FONT_SIZE: CGFloat = 8
 }

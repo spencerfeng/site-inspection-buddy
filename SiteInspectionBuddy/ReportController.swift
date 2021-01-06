@@ -9,12 +9,18 @@ import Foundation
 import UIKit
 import PDFKit
 
+enum SingleLineTextPosition {
+    case left, center, right
+}
+
 class ReportController: UIViewController {
     let project: Project
     let pdfView: PDFView
     
     let pdfWidth = CGFloat(8.5 * 72.0)
     let pdfHeight = CGFloat(11 * 72.0)
+    
+    var currentPageNumber = 0
     
     lazy var pdfContentWidth: CGFloat = {
         return pdfWidth - 2 * Constants.PDF_HORIZONTAL_PADDING
@@ -99,11 +105,13 @@ class ReportController: UIViewController {
             let drawContext = context.cgContext
             
             // draw cover page
-            context.beginPage()
+            addPage(context: context, pageNumber: &currentPageNumber)
+            
             var lastY = drawReportTitle()
             
             // draw issues
-            context.beginPage()
+            addPage(context: context, pageNumber: &currentPageNumber)
+            
             lastY = Constants.PDF_VERTICAL_PADDING
             
             for issue in project.issuesArray.reversed() {
@@ -121,7 +129,7 @@ class ReportController: UIViewController {
                 
                 if issueTitleTextRect.rect.origin.y + issueTitleTextRect.rect.height + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
                     // start a new page if title is at the very bottom of a page
-                    context.beginPage()
+                    addPage(context: context, pageNumber: &currentPageNumber)
                     
                     issueTitleTextRect = (
                         text: issueTitleTextRect.text,
@@ -146,7 +154,7 @@ class ReportController: UIViewController {
                 
                 if issueAssigneeTextRect.rect.origin.y + issueAssigneeTextRect.rect.height + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
                     // start a new page if assignee is at the very bottom of a page
-                    context.beginPage()
+                    addPage(context: context, pageNumber: &currentPageNumber)
                     
                     issueTitleTextRect = (
                         text: issueTitleTextRect.text,
@@ -176,7 +184,7 @@ class ReportController: UIViewController {
                 
                 if issueTitleSeparatorBottomY + 1.5 * Constants.DEFAULT_MARGIN > pdfHeight - Constants.PDF_VERTICAL_PADDING {
                     // start a new page if issue title separator is at the very bottom of a page
-                    context.beginPage()
+                    addPage(context: context, pageNumber: &currentPageNumber)
                     
                     issueTitleTextRect = (
                         text: issueTitleTextRect.text,
@@ -216,7 +224,7 @@ class ReportController: UIViewController {
                     // if the image can not fit in this page, we start a new page
                     if issuePhotoDrawingRect.origin.y + issuePhotoDrawingRect.height > pdfHeight - Constants.PDF_VERTICAL_PADDING {
                         // start a new page if issue photo is at the very bottom of a page
-                        context.beginPage()
+                        addPage(context: context, pageNumber: &currentPageNumber)
                         
                         issueTitleTextRect = (
                             text: issueTitleTextRect.text,
@@ -448,7 +456,7 @@ class ReportController: UIViewController {
             if currentRange.location == CFIndex(0) {
                 rect = initialRect
             } else {
-                context.beginPage()
+                addPage(context: context, pageNumber: &currentPageNumber)
                 
                 rect = CGRect(
                     x: initialRect.origin.x,
@@ -512,5 +520,58 @@ class ReportController: UIViewController {
         currentContext?.scaleBy(x: 1.0, y: -1.0)
         
         return currentRange
+    }
+    
+    func prepareDrawingSingleLineText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight) -> NSAttributedString {
+        let textFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        let textAttributes = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: color
+        ]
+        let attributedText = NSAttributedString(
+            string: text,
+            attributes: textAttributes
+        )
+        
+        return attributedText
+    }
+    
+    func drawSingleLineText(text: NSAttributedString, in container: CGRect, position: SingleLineTextPosition = .left) -> CGFloat {
+        switch position {
+        case .left:
+            text.draw(at: CGPoint(x: container.origin.x, y: container.origin.y))
+        case .right:
+            text.draw(at: CGPoint(x: container.width - text.size().width + container.origin.x, y: container.origin.y))
+        case .center:
+            text.draw(at: CGPoint(x: (container.width - text.size().width) / 2.0 + container.origin.x, y: container.origin.y))
+        }
+        
+        return container.origin.y + text.size().height
+    }
+    
+    func drawPageNumber(_ pageNumber: Int) {
+        let attributedPageNumber = prepareDrawingSingleLineText(
+            text: "Page \(pageNumber)",
+            fontSize: Constants.PDF_PAGE_NUMBER_FONT_SIZE,
+            color: UIColor(.black),
+            weight: .regular
+        )
+        
+        let _ = drawSingleLineText(
+            text: attributedPageNumber,
+            in: CGRect(
+                x: Constants.PDF_HORIZONTAL_PADDING,
+                y: pdfHeight - 0.5 * Constants.PDF_VERTICAL_PADDING,
+                width: pdfContentWidth,
+                height: attributedPageNumber.size().height
+            ),
+            position: .center
+        )
+    }
+    
+    func addPage(context: UIGraphicsPDFRendererContext, pageNumber: inout Int) {
+        context.beginPage()
+        pageNumber += 1
+        drawPageNumber(pageNumber)
     }
 }
