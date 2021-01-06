@@ -24,6 +24,10 @@ class ReportController: UIViewController {
         return pdfHeight - 2 * Constants.PDF_VERTICAL_PADDING
     }()
     
+    lazy var issuePhotoMaxHeight: CGFloat = {
+        return pdfContentHeight * 0.3
+    }()
+    
     init(project: Project) {
         self.project = project
         self.pdfView = PDFView()
@@ -205,7 +209,8 @@ class ReportController: UIViewController {
                     var issuePhotoDrawingRect = prepareDrawingImage(
                         image: issuePhoto,
                         at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleSeparatorBottomY + Constants.DEFAULT_MARGIN),
-                        withWidth: pdfContentWidth * 0.3
+                        withWidth: pdfContentWidth * 0.3,
+                        maxHeight: issuePhotoMaxHeight
                     )
                     
                     // if the image can not fit in this page, we start a new page
@@ -241,7 +246,8 @@ class ReportController: UIViewController {
                         issuePhotoDrawingRect = prepareDrawingImage(
                             image: issuePhoto,
                             at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: issueTitleSeparatorBottomY + Constants.DEFAULT_MARGIN),
-                            withWidth: pdfContentWidth * 0.3
+                            withWidth: pdfContentWidth * 0.3,
+                            maxHeight: issuePhotoMaxHeight
                         )
                     }
                     
@@ -373,11 +379,18 @@ class ReportController: UIViewController {
         return (text: attributedText, rect: textStringRect)
     }
     
-    func prepareDrawingImage(image: UIImage, at: CGPoint, withWidth: CGFloat) -> CGRect {
-        let aspectRatio = image.size.height / image.size.width
-        let drawingH = aspectRatio * withWidth
+    func prepareDrawingImage(image: UIImage, at: CGPoint, withWidth: CGFloat, maxHeight: CGFloat) -> CGRect {
+        var drawingW = withWidth
         
-        return CGRect(x: at.x, y: at.y, width: withWidth, height: drawingH)
+        let aspectRatio = image.size.height / image.size.width
+        var drawingH = aspectRatio * drawingW
+        
+        if drawingH > maxHeight {
+            drawingW = maxHeight / aspectRatio
+            drawingH = maxHeight
+        }
+        
+        return CGRect(x: at.x, y: at.y, width: drawingW, height: drawingH)
     }
     
     func prepareDrawingHorizontalLine(startY: CGFloat, thickness: CGFloat) -> CGFloat {
