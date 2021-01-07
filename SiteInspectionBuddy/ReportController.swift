@@ -22,6 +22,8 @@ class ReportController: UIViewController {
     
     var currentPageNumber = 0
     
+    var pdfData: Data? = nil
+    
     lazy var pdfContentWidth: CGFloat = {
         return pdfWidth - 2 * Constants.PDF_HORIZONTAL_PADDING
     }()
@@ -75,6 +77,17 @@ class ReportController: UIViewController {
         thumnailView.pdfView = pdfView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "square.and.arrow.up"),
+            style: .plain,
+            target: self,
+            action: #selector(sharePDF)
+        )
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -82,9 +95,11 @@ class ReportController: UIViewController {
             guard let self = self else {
                 return
             }
-            let pdfData = self.generatePDF()
+            
+            let data = self.generatePDF()
+            self.pdfData = self.generatePDF()
             DispatchQueue.main.async { [weak self] in
-                self?.pdfView.document = PDFDocument(data: pdfData)
+                self?.pdfView.document = PDFDocument(data: data)
             }
         }
     }
@@ -330,6 +345,25 @@ class ReportController: UIViewController {
         }
         
         return data
+    }
+    
+    @objc func sharePDF(_ sender: UIBarButtonItem) {
+        guard let data = pdfData else { return }
+        let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+        activityVC.excludedActivityTypes = [
+            .addToReadingList,
+            .assignToContact,
+            .markupAsPDF,
+            .postToFacebook,
+            .postToFlickr,
+            .postToTencentWeibo,
+            .postToTwitter,
+            .postToVimeo,
+            .postToWeibo,
+            .saveToCameraRoll
+        ]
+        activityVC.popoverPresentationController?.barButtonItem = sender
+        present(activityVC, animated: true, completion: nil)
     }
     
     func drawReportTitle() -> CGFloat {
