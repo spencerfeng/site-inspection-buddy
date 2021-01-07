@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Issue {
 
@@ -32,6 +32,24 @@ extension Issue {
             $0.createdAt! < $1.createdAt!
         }
     }
+    
+    public var firstPhoto: UIImage? {
+        if photosArray.count <= 0 { return nil }
+        
+        guard let photoData = photosArray[0].photoData else { return nil }
+        guard let image = UIImage(data: photoData) else { return nil }
+        
+        return image
+    }
+    
+    public var annotationOfFirstPhoto: UIImage? {
+        if photosArray.count <= 0 { return nil }
+        
+        guard let annotationData = photosArray[0].annotationData else { return nil }
+        guard let annotation = UIImage(data: annotationData) else { return nil }
+        
+        return annotation
+    }
 }
 
 // MARK: Generated accessors for photos
@@ -48,7 +66,7 @@ extension Issue {
 
     @objc(removePhotos:)
     @NSManaged public func removeFromPhotos(_ values: NSSet)
-
+    
 }
 
 extension Issue : Identifiable {
