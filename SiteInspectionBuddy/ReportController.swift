@@ -122,7 +122,17 @@ class ReportController: UIViewController {
             // draw cover page
             addPage(context: context, pageNumber: &currentPageNumber)
             
-            var lastY = drawReportTitle()
+            // draw report title
+            let reportTitleTextRect = prepareDrawingMultiLineText(
+                text: project.title ?? "",
+                fontSize: Constants.PDF_REPORT_TITLE_FONT_SIZE,
+                color: UIColor(.black),
+                weight: .bold,
+                at: CGPoint(x: Constants.PDF_HORIZONTAL_PADDING, y: Constants.PDF_VERTICAL_PADDING + pdfContentWidth * 5.0 / 12.0),
+                withWidth: pdfContentWidth
+            )
+            
+            var lastY = drawMultiLineText(text: reportTitleTextRect.text, in: reportTitleTextRect.rect)
             
             // draw issues
             addPage(context: context, pageNumber: &currentPageNumber)
@@ -133,7 +143,7 @@ class ReportController: UIViewController {
                 // we make sure that title, separator and image (if there is one) are display on the same page
                 
                 // prepare drawing issue title
-                var issueTitleTextRect = prepareDrawingText(
+                var issueTitleTextRect = prepareDrawingMultiLineText(
                     text: issue.title ?? "",
                     fontSize: Constants.PDF_ISSUE_TITLE_FONT_SIZE,
                     color: UIColor(.black),
@@ -158,7 +168,7 @@ class ReportController: UIViewController {
                 }
                 
                 // prepare drawing issue assignee
-                var issueAssigneeTextRect = prepareDrawingText(
+                var issueAssigneeTextRect = prepareDrawingMultiLineText(
                     text: issue.assignee != nil ? "Assigned to: \(issue.assignee!)" : "",
                     fontSize: Constants.PDF_ISSUE_ASSIGNEE_FONT_SIZE,
                     color: UIColor(.gray),
@@ -275,9 +285,9 @@ class ReportController: UIViewController {
                     }
                     
                     // draw issue title
-                    drawTextInRect(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
+                    let _ = drawMultiLineText(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
                     // draw issue assignee
-                    drawTextInRect(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
+                    let _ = drawMultiLineText(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
                     // draow issue title separator
                     let _ = drawHorizontalLine(
                         drawContext,
@@ -293,7 +303,7 @@ class ReportController: UIViewController {
                         in: issuePhotoDrawingRect
                     )
                     // draw issue comment
-                    let infoOfAddedText = addComment(
+                    let infoOfAddedText = drawMultiPageText(
                         issue.comment ?? "",
                         context: context,
                         in: CGRect(
@@ -314,9 +324,9 @@ class ReportController: UIViewController {
                 } else {
                     // This issue does not have a photo
                     // draw issue title
-                    drawTextInRect(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
+                    let _ = drawMultiLineText(text: issueTitleTextRect.text, in: issueTitleTextRect.rect)
                     // draw issue assignee
-                    drawTextInRect(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
+                    let _ = drawMultiLineText(text: issueAssigneeTextRect.text, in: issueAssigneeTextRect.rect)
                     // draow issue title separator
                     let _ = drawHorizontalLine(
                         drawContext,
@@ -326,7 +336,7 @@ class ReportController: UIViewController {
                         color: UIColor(.blue).cgColor
                     )
                     // draw issue comment
-                    let infoOfAddedText = addComment(
+                    let infoOfAddedText = drawMultiPageText(
                         issue.comment ?? "",
                         context: context,
                         in: CGRect(
@@ -366,37 +376,34 @@ class ReportController: UIViewController {
         present(activityVC, animated: true, completion: nil)
     }
     
-    func drawReportTitle() -> CGFloat {
-        let titleFont = UIFont.systemFont(ofSize: Constants.PDF_REPORT_TITLE_FONT_SIZE, weight: .bold)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .natural
-        paragraphStyle.lineBreakMode = .byWordWrapping
-        let titleAttributes = [
-            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-            NSAttributedString.Key.font: titleFont
+    func prepareDrawingSingleLineText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight) -> NSAttributedString {
+        let textFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        let textAttributes = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: color
         ]
-        let attributedTitle = NSAttributedString(
-            string: project.title ?? "",
-            attributes: titleAttributes
-        )
-        let titleStringSize = attributedTitle.size()
-        let titleStringRect = CGRect(
-            x: Constants.PDF_HORIZONTAL_PADDING,
-            y: pdfHeight / 2.0,
-            width: pdfContentWidth,
-            height: getTextRectHeight(textWidth: titleStringSize.width, textHeight: titleStringSize.height, rectWidth: pdfContentWidth)
+        let attributedText = NSAttributedString(
+            string: text,
+            attributes: textAttributes
         )
         
-        attributedTitle.draw(in: titleStringRect)
+        return attributedText
+    }
+    
+    func drawSingleLineText(text: NSAttributedString, in container: CGRect, position: SingleLineTextPosition = .left) -> CGFloat {
+        switch position {
+        case .left:
+            text.draw(at: CGPoint(x: container.origin.x, y: container.origin.y))
+        case .right:
+            text.draw(at: CGPoint(x: container.width - text.size().width + container.origin.x, y: container.origin.y))
+        case .center:
+            text.draw(at: CGPoint(x: (container.width - text.size().width) / 2.0 + container.origin.x, y: container.origin.y))
+        }
         
-        return titleStringRect.origin.y + titleStringRect.height
+        return container.origin.y + text.size().height
     }
     
-    func getTextRectHeight(textWidth: CGFloat, textHeight: CGFloat, rectWidth: CGFloat) -> CGFloat {
-        return ceil(textWidth / rectWidth) * textHeight
-    }
-    
-    func prepareDrawingText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight, at: CGPoint, withWidth: CGFloat) -> (text: NSAttributedString, rect: CGRect) {
+    func prepareDrawingMultiLineText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight, at: CGPoint, withWidth: CGFloat) -> (text: NSAttributedString, rect: CGRect) {
         let textFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .natural
@@ -421,6 +428,16 @@ class ReportController: UIViewController {
         return (text: attributedText, rect: textStringRect)
     }
     
+    func drawMultiLineText(text: NSAttributedString, in rect: CGRect) -> CGFloat {
+        text.draw(in: rect)
+        
+        return rect.origin.y + rect.height
+    }
+    
+    func getTextRectHeight(textWidth: CGFloat, textHeight: CGFloat, rectWidth: CGFloat) -> CGFloat {
+        return ceil(textWidth / rectWidth) * textHeight
+    }
+    
     func prepareDrawingImage(image: UIImage, at: CGPoint, withWidth: CGFloat, maxHeight: CGFloat) -> CGRect {
         var drawingW = withWidth
         
@@ -433,6 +450,16 @@ class ReportController: UIViewController {
         }
         
         return CGRect(x: at.x, y: at.y, width: drawingW, height: drawingH)
+    }
+    
+    func drawImage(bgImage: UIImage, annotationImage: UIImage?, in rect: CGRect) -> CGFloat {
+        bgImage.draw(in: rect)
+        
+        if let annotationImage = annotationImage {
+            annotationImage.draw(in: rect)
+        }
+        
+        return rect.origin.y + rect.height
     }
     
     func prepareDrawingHorizontalLine(startY: CGFloat, thickness: CGFloat) -> CGFloat {
@@ -451,21 +478,7 @@ class ReportController: UIViewController {
         return startAt.y + thickness
     }
     
-    func drawImage(bgImage: UIImage, annotationImage: UIImage?, in rect: CGRect) -> CGFloat {
-        bgImage.draw(in: rect)
-        
-        if let annotationImage = annotationImage {
-            annotationImage.draw(in: rect)
-        }
-        
-        return rect.origin.y + rect.height
-    }
-    
-    func drawTextInRect(text: NSAttributedString, in rect: CGRect) {
-        text.draw(in: rect)
-    }
-    
-    func addComment(_ text: String, context: UIGraphicsPDFRendererContext, in initialRect: CGRect, fromY lastY: CGFloat) -> (textBottom: CGFloat, numberOfPages: Int) {
+    func drawMultiPageText(_ text: String, context: UIGraphicsPDFRendererContext, in initialRect: CGRect, fromY lastY: CGFloat) -> (textBottom: CGFloat, numberOfPages: Int) {
         let textFont = UIFont.systemFont(ofSize: Constants.PDF_ISSUE_BODY_FONT_SIZE, weight: .regular)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .natural
@@ -508,7 +521,7 @@ class ReportController: UIViewController {
                 nil
             )
             
-            currentRange = renderComment(
+            currentRange = renderMultiPageTextRange(
                 withTextRange: currentRange,
                 andFramesetter: framesetter,
                 in: rect
@@ -529,7 +542,7 @@ class ReportController: UIViewController {
         return (textBottom: lastY + textFrameSuggestedSize.height, numberOfPages: numberOfPages)
     }
     
-    func renderComment(withTextRange currentRange: CFRange, andFramesetter framesetter: CTFramesetter?, in rect: CGRect) -> CFRange {
+    func renderMultiPageTextRange(withTextRange currentRange: CFRange, andFramesetter framesetter: CTFramesetter?, in rect: CGRect) -> CFRange {
         var currentRange = currentRange
         
         let currentContext = UIGraphicsGetCurrentContext()
@@ -554,33 +567,6 @@ class ReportController: UIViewController {
         currentContext?.scaleBy(x: 1.0, y: -1.0)
         
         return currentRange
-    }
-    
-    func prepareDrawingSingleLineText(text: String, fontSize: CGFloat, color: UIColor, weight: UIFont.Weight) -> NSAttributedString {
-        let textFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
-        let textAttributes = [
-            NSAttributedString.Key.font: textFont,
-            NSAttributedString.Key.foregroundColor: color
-        ]
-        let attributedText = NSAttributedString(
-            string: text,
-            attributes: textAttributes
-        )
-        
-        return attributedText
-    }
-    
-    func drawSingleLineText(text: NSAttributedString, in container: CGRect, position: SingleLineTextPosition = .left) -> CGFloat {
-        switch position {
-        case .left:
-            text.draw(at: CGPoint(x: container.origin.x, y: container.origin.y))
-        case .right:
-            text.draw(at: CGPoint(x: container.width - text.size().width + container.origin.x, y: container.origin.y))
-        case .center:
-            text.draw(at: CGPoint(x: (container.width - text.size().width) / 2.0 + container.origin.x, y: container.origin.y))
-        }
-        
-        return container.origin.y + text.size().height
     }
     
     func drawPageNumber(_ pageNumber: Int) {
