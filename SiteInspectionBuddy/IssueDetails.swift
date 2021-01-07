@@ -121,12 +121,14 @@ struct IssueDetails: View {
                 Form {
                     Section(header: Text("Title")) {
                         TextField("Title", text: $title)
+                            .modifier(TextFieldClearButton(text: $title))
                             .onAppear {
                                 title = issue.title ?? ""
                             }
                     }
                     Section(header: Text("Assignee")) {
                         TextField("Assignee", text: $assignee)
+                            .modifier(TextFieldClearButton(text: $assignee))
                             .onAppear {
                                 assignee = issue.assignee ?? ""
                             }

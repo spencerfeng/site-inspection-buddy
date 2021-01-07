@@ -19,12 +19,14 @@ struct ProjectInfo: View {
         Form {
             Section(header: Text("Title")) {
                 TextField("Title", text: $title)
+                    .modifier(TextFieldClearButton(text: $title))
                     .onAppear {
                         title = project.title ?? ""
                     }
             }
             Section(header: Text("Client")) {
                 TextField("Client", text: $client)
+                    .modifier(TextFieldClearButton(text: $client))
                     .onAppear {
                         client = project.client ?? ""
                     }
