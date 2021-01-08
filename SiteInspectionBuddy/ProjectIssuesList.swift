@@ -25,14 +25,38 @@ struct ProjectIssuesList: View {
     }
     
     var body: some View {
-        List {
-            ForEach(issues, id: \.id) { issue in
-                ProjectIssuesListItem(issue: issue, selectedIssueId: $selectedIssueId)
-                .listRowBackground(self.selectedIssueId == issue.id ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
+        VStack(spacing: 0) {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    let newIssue = addIssue()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.selectedIssueId = newIssue.id
+                    }
+                }
+            }) {
+                HStack {
+                    Image(systemName: "plus.circle.fill").foregroundColor(.blue)
+                    Text("Create New").foregroundColor(.blue)
+                }
             }
-        }
-        .onDisappear {
-            self.selectedIssueId = nil
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.blue, lineWidth: 1)
+            )
+            .padding()
+            
+            Divider()
+            
+            List {
+                ForEach(issues, id: \.id) { issue in
+                    ProjectIssuesListItem(issue: issue, selectedIssueId: $selectedIssueId)
+                    .listRowBackground(self.selectedIssueId == issue.id ? Color(red: 242/255, green: 242/255, blue: 242/255) : Color.clear)
+                }
+            }
+            .onDisappear {
+                self.selectedIssueId = nil
+            }
         }
         .navigationBarTitle(Text("Issues"), displayMode: .inline)
         .navigationBarItems(trailing: Button(action: {
