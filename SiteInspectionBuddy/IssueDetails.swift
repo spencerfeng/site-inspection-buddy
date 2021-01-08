@@ -14,7 +14,7 @@ struct IssueDetails: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State private var isShowPhotoLibrary = false
-    @State private var annotationImage = UIImage()
+    @State private var annotationImage: UIImage? = nil
     @State private var isShowPhotoEditor = false
     @State private var title = ""
     @State private var assignee = ""
@@ -72,7 +72,7 @@ struct IssueDetails: View {
                             .scaledToFit()
                             .frame(width: geometry.size.width, height: 300, alignment: .center)
                             .clipped()
-                            .overlay(Image(uiImage: annotationImage).resizable().scaledToFit())
+                            .overlay(Image(uiImage: annotationImage ?? UIImage()).resizable().scaledToFit())
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                     if let annotationData = issue.photosArray[0].annotationData {
@@ -99,7 +99,7 @@ struct IssueDetails: View {
                                     
                                     // TODO: what if deleting this photo from Core Data failed
                                     backgroundImage = UIImage()
-                                    annotationImage = UIImage()
+                                    annotationImage = nil
                                     
                                 }
                             }) {
@@ -113,7 +113,12 @@ struct IssueDetails: View {
                     }
                     .isEmpty(backgroundImage == nil)
                     .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
-                        DrawingPadControllerRepresentation(backgroundImage: backgroundImage ?? UIImage(), annotationImage: $annotationImage, strokeColor: Constants.DRAWING_DEFAULT_COLOR, photo: self.issue.photosArray[0])
+                        DrawingPadControllerRepresentation(
+                            backgroundImage: backgroundImage ?? UIImage(),
+                            annotationImage: $annotationImage,
+                            strokeColor: Constants.DRAWING_DEFAULT_COLOR,
+                            photo: self.issue.photosArray[0]
+                        )
                     })
                 }
                 .background(Color(red: 242/255, green: 242/255, blue: 242/255))

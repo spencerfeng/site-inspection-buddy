@@ -14,19 +14,23 @@ protocol DrawingPadControllerDelegate: AnyObject {
 
 class DrawingPadController: UIViewController {
     let backgroundImage: UIImage
-    let annotationImage: UIImage
     let sfSymbolImageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)
     let colorPickerBtnImg = UIImage(systemName: "circle.fill")
     let undoBtnImg = UIImage(systemName: "arrow.counterclockwise")
     let colorPickerBtn = UIButton(type: .custom)
     let undoBtn = UIButton(type: .custom)
+    let clearBtn = UIButton(type: .custom)
     let colorPickerBarButtonItem = UIBarButtonItem()
     let canvas: CanvasView
     
+    var isAnnotationBtnClickable: Bool {
+        return !canvas.isAnnotationEmpty()
+    }
+    var annotationImage: UIImage?
     var strokeColor: UIColor
     weak var delegate: DrawingPadControllerDelegate?
     
-    init(backgroundImage: UIImage, annotationImage: UIImage, strokeColor: UIColor) {
+    init(backgroundImage: UIImage, annotationImage: UIImage?, strokeColor: UIColor) {
         self.backgroundImage = backgroundImage
         self.annotationImage = annotationImage
         self.strokeColor = strokeColor
@@ -109,10 +113,16 @@ class DrawingPadController: UIViewController {
         undoBtn.addTarget(self, action: #selector(handleUndoBtnClicked), for: .touchUpInside)
         let undoBarButtonItem = UIBarButtonItem(customView: undoBtn)
         
+        // clear button
+        clearBtn.setImage(UIImage(systemName: "trash", withConfiguration: sfSymbolImageConfig), for: .normal)
+        clearBtn.isUserInteractionEnabled = isAnnotationBtnClickable
+        clearBtn.addTarget(self, action: #selector(handleClearBtnClicked), for: .touchUpInside)
+        let clearBarButtonItem = UIBarButtonItem(customView: clearBtn)
+        
         // spacer
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        bottomToolbar.items = [spacer, colorPickerBarButtonItem, spacer, undoBarButtonItem, spacer]
+        bottomToolbar.items = [spacer, colorPickerBarButtonItem, spacer, undoBarButtonItem, spacer, clearBarButtonItem, spacer]
         
         view.addSubview(bottomToolbar)
         
@@ -146,6 +156,12 @@ class DrawingPadController: UIViewController {
     
     @objc func handleUndoBtnClicked() {
         canvas.undo()
+        clearBtn.isUserInteractionEnabled = isAnnotationBtnClickable
+    }
+    
+    @objc func handleClearBtnClicked() {
+        canvas.clearAnnotation()
+        clearBtn.isUserInteractionEnabled = false
     }
 }
 
@@ -169,5 +185,6 @@ extension DrawingPadController: CanvasViewDelegate {
         if !undoBtn.isUserInteractionEnabled {
             undoBtn.isUserInteractionEnabled = true
         }
+        clearBtn.isUserInteractionEnabled = true
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     var backgroundImage: UIImage
-    @Binding var annotationImage: UIImage
+    @Binding var annotationImage: UIImage?
     var strokeColor: UIColor
     let photo: Photo
     
@@ -18,15 +18,17 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     func makeUIViewController(context: Context) -> DrawingPadController {
-        let drawingPad = DrawingPadController(backgroundImage: backgroundImage, annotationImage: annotationImage, strokeColor: strokeColor)
+        let drawingPad = DrawingPadController(
+            backgroundImage: backgroundImage,
+            annotationImage: annotationImage,
+            strokeColor: strokeColor
+        )
         drawingPad.delegate = context.coordinator
         
         return drawingPad
     }
     
-    func updateUIViewController(_ uiViewController: DrawingPadController, context: Context) {
-        // TODO
-    }
+    func updateUIViewController(_ uiViewController: DrawingPadController, context: Context) {}
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -53,16 +55,24 @@ struct DrawingPadControllerRepresentation: UIViewControllerRepresentable {
         }
         
         func drawingPadControllerWillSaveDrawing(_ drawingPad: DrawingPadController, canvas: CanvasView) {
-            UIGraphicsBeginImageContextWithOptions(canvas.bounds.size, canvas.isOpaque, 0.0)
-            canvas.drawHierarchy(in: canvas.bounds, afterScreenUpdates: false)
-            let viewScreenshot = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            guard let annotation = viewScreenshot else { return }
-            parent.photo.annotationData = annotation.pngData()
             parent.photo.updatedAt = Date()
-            parent.saveContext()
-            parent.annotationImage = annotation
+            
+            if (!canvas.isAnnotationEmpty()) {
+                UIGraphicsBeginImageContextWithOptions(canvas.bounds.size, canvas.isOpaque, 0.0)
+                canvas.drawHierarchy(in: canvas.bounds, afterScreenUpdates: false)
+                let viewScreenshot = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+
+                guard let annotation = viewScreenshot else { return }
+                parent.photo.annotationData = annotation.pngData()
+                parent.saveContext()
+                parent.annotationImage = annotation
+            } else {
+                parent.photo.annotationData = nil
+                parent.saveContext()
+                parent.annotationImage = nil
+            }
+            
             parent.presentationMode.wrappedValue.dismiss()
         }
     }

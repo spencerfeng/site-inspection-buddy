@@ -13,13 +13,13 @@ protocol CanvasViewDelegate: AnyObject {
 }
 
 class CanvasView: UIView {
-    var annotationImage: UIImage
+    var annotationImage: UIImage?
     var strokeColor: UIColor
     var paths: [StrokePath] = []
     
     weak var delegate: CanvasViewDelegate?
     
-    init(annotationImage: UIImage, strokeColor: UIColor) {
+    init(annotationImage: UIImage?, strokeColor: UIColor) {
         self.annotationImage = annotationImage
         self.strokeColor = strokeColor
         
@@ -33,7 +33,9 @@ class CanvasView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        annotationImage.draw(in: rect)
+        if let annotationImage = annotationImage {
+            annotationImage.draw(in: rect)
+        }
         
         guard let context = UIGraphicsGetCurrentContext() else {
             return
@@ -78,6 +80,16 @@ class CanvasView: UIView {
     func undo() {
         let _ = paths.popLast()
         setNeedsDisplay()
+    }
+    
+    func clearAnnotation() {
+        annotationImage = nil
+        paths = []
+        setNeedsDisplay()
+    }
+    
+    func isAnnotationEmpty() -> Bool {
+        return paths.count == 0 && annotationImage == nil
     }
 }
 
