@@ -48,7 +48,7 @@ struct IssueDetails: View {
                             }
                         }
                     }
-                    .isEmpty(backgroundImage != nil)
+                    .isEmpty(self.issue.photosArray.count > 0)
                     .frame(width: geometry.size.width, height: 300, alignment: .center)
                     .sheet(isPresented: $isShowPhotoLibrary) {
                         ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
@@ -111,7 +111,7 @@ struct IssueDetails: View {
                             }
                         }
                     }
-                    .isEmpty(backgroundImage == nil)
+                    .isEmpty(self.issue.photosArray.count <= 0)
                     .fullScreenCover(isPresented: $isShowPhotoEditor, content: {
                         DrawingPadControllerRepresentation(
                             backgroundImage: backgroundImage ?? UIImage(),
