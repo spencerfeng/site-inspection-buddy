@@ -133,15 +133,14 @@ class DrawingPadController: UIViewController {
         self.delegate?.drawingPadControllerWillSaveDrawing(self, canvas: canvas)
     }
     
-    @objc func handleColorPickerBtnClicked() {
+    @objc func handleColorPickerBtnClicked(_ sender: UIButton) {
         let colorOptionsVC = ColorOptionsController()
         colorOptionsVC.delegate = self
         colorOptionsVC.preferredContentSize = CGSize(width: Constants.POPOVER_WIDTH, height: Constants.COLOR_PICKER_POPOVER_HEIGHT)
         colorOptionsVC.modalPresentationStyle = .popover
         let popover: UIPopoverPresentationController = colorOptionsVC.popoverPresentationController!
-        popover.sourceView = view
+        popover.sourceView = sender
         popover.delegate = self
-        popover.barButtonItem = colorPickerBarButtonItem
         present(colorOptionsVC, animated: true)
     }
     
