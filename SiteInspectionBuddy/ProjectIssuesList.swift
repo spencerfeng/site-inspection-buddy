@@ -20,7 +20,10 @@ struct ProjectIssuesList: View {
         self.project = project
         self._issues = FetchRequest(
             entity: Issue.entity(),
-            sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: false)],
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Issue.order, ascending: true),
+                NSSortDescriptor(keyPath: \Issue.createdAt, ascending: true)
+            ],
             predicate: NSPredicate(format: "project == %@", project))
     }
     
@@ -77,7 +80,15 @@ struct ProjectIssuesList: View {
     }
     
     func moveIssue(from source: IndexSet, to destination: Int) {
-        // TODO: reorder issues
+        var revisedIssues: [Issue] = issues.map { $0 }
+        
+        revisedIssues.move(fromOffsets: source, toOffset: destination)
+        
+        for (index, _) in revisedIssues.enumerated() {
+            revisedIssues[index].order = Int16(index)
+        }
+        
+        saveContext()
     }
     
     func addIssue() -> Issue {
@@ -88,6 +99,7 @@ struct ProjectIssuesList: View {
         newIssue.createdAt = now
         newIssue.title = "Issue \(issues.count + 1)"
         newIssue.project = project
+        newIssue.order = 10000
         
         saveContext()
         

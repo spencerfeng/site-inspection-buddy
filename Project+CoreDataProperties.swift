@@ -28,7 +28,7 @@ extension Project {
         let set = issues as? Set<Issue> ?? []
         
         return set.sorted {
-            $0.createdAt! < $1.createdAt!
+            $0.order < $1.order
         }
     }
 }

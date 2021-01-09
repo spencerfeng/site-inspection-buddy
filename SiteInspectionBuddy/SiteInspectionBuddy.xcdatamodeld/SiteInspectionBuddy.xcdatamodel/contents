@@ -5,6 +5,7 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="issue" inverseEntity="Photo"/>
@@ -28,7 +29,7 @@
         <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Issue" inverseName="project" inverseEntity="Issue"/>
     </entity>
     <elements>
-        <element name="Issue" positionX="-54" positionY="27" width="128" height="149"/>
+        <element name="Issue" positionX="-54" positionY="27" width="128" height="164"/>
         <element name="Photo" positionX="-36" positionY="54" width="128" height="119"/>
         <element name="Project" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
