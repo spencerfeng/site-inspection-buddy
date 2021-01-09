@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProjectsList: View {
     @State var selectedProjectId: UUID? = nil
+    @State var shouldDisableCreateNewProjectBtn = false
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -44,15 +45,18 @@ struct ProjectsList: View {
             .listStyle(PlainListStyle())
             .navigationBarTitle(Text("Projects"))
             .navigationBarItems(trailing: Button(action: {
+                shouldDisableCreateNewProjectBtn = true
                 withAnimation(.easeInOut(duration: 1.0)) {
                     let newProject = addProject()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.selectedProjectId = newProject.id
+                        shouldDisableCreateNewProjectBtn = false
                     }
                 }
             }) {
                 Image(systemName: "plus")
-            })
+            }
+            .disabled(shouldDisableCreateNewProjectBtn))
         }
         // fix an issue which causes 'SwiftUI displayModeButtonItem is internally managed' warning in the console
         // stackoverflow reference: https://stackoverflow.com/questions/63740788/swiftui-displaymodebuttonitem-is-internally-managed
