@@ -11,6 +11,7 @@ struct ProjectIssuesList: View {
     @ObservedObject var project: Project
     
     @State var selectedIssueId: UUID? = nil
+    @State var shouldDisableCreateNewIssueBtn = false
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -30,10 +31,12 @@ struct ProjectIssuesList: View {
     var body: some View {
         VStack(spacing: 0) {
             Button(action: {
+                shouldDisableCreateNewIssueBtn = true
                 withAnimation(.easeInOut(duration: 1.0)) {
                     let newIssue = addIssue()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.selectedIssueId = newIssue.id
+                        self.shouldDisableCreateNewIssueBtn = false
                     }
                 }
             }) {
@@ -42,6 +45,7 @@ struct ProjectIssuesList: View {
                     Text("Create New").foregroundColor(.blue)
                 }
             }
+            .disabled(shouldDisableCreateNewIssueBtn)
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
