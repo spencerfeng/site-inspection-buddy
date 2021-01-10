@@ -45,6 +45,7 @@
 		9CAC663C25A6D0B9009876CA /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC663B25A6D0B9009876CA /* AppView.swift */; };
 		9CAC664125A6D0E6009876CA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC664025A6D0E6009876CA /* SettingsView.swift */; };
 		9CB58E8225A70A6C00FE6A12 /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB58E8125A70A6C00FE6A12 /* TextFieldClearButton.swift */; };
+		9CB58E8725AAFA6200FE6A12 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB58E8625AAFA6200FE6A12 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		9CAC663B25A6D0B9009876CA /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		9CAC664025A6D0E6009876CA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9CB58E8125A70A6C00FE6A12 /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
+		9CB58E8625AAFA6200FE6A12 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				9CAC663B25A6D0B9009876CA /* AppView.swift */,
 				9CAC664025A6D0E6009876CA /* SettingsView.swift */,
 				9CB58E8125A70A6C00FE6A12 /* TextFieldClearButton.swift */,
+				9CB58E8625AAFA6200FE6A12 /* Helper.swift */,
 			);
 			path = SiteInspectionBuddy;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				9C7921DE25998BB300B3D0F5 /* Photo+CoreDataClass.swift in Sources */,
 				9C75CD5F257CA6780084CC35 /* ImagePicker.swift in Sources */,
 				9C75CD2F257395D40084CC35 /* ProjectsList.swift in Sources */,
+				9CB58E8725AAFA6200FE6A12 /* Helper.swift in Sources */,
 				9CAC664125A6D0E6009876CA /* SettingsView.swift in Sources */,
 				9C792205259EA50400B3D0F5 /* ReportController.swift in Sources */,
 				9C6F35CF259317B8009B8CD6 /* ColorOptionsController.swift in Sources */,

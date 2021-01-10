@@ -9,10 +9,12 @@ import SwiftUI
 
 struct IssueDetails: View {
     var issue: Issue
-    @Binding var backgroundImage: UIImage?
+    @Binding var backgroundImageData: Data?
+    @Binding var backgroundImageThumb: UIImage?
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @State private var backgroundImage: UIImage?
     @State private var isShowPhotoLibrary = false
     @State private var annotationImage: UIImage? = nil
     @State private var isShowPhotoEditor = false
@@ -52,17 +54,28 @@ struct IssueDetails: View {
                     .frame(width: geometry.size.width, height: 300, alignment: .center)
                     .sheet(isPresented: $isShowPhotoLibrary) {
                         ImagePicker(sourceType: .photoLibrary, onSelectImage: { image in
-                            self.backgroundImage = image
-                            
                             let newPhoto = Photo(context: managedObjectContext)
+                            let newPhotoData = image.jpegData(compressionQuality: 0.5)
                             let now = Date()
                             
                             newPhoto.id = UUID()
                             newPhoto.createdAt = now
-                            newPhoto.photoData = image.jpegData(compressionQuality: 0.5)
+                            newPhoto.photoData = newPhotoData
                             newPhoto.issue = self.issue
                             
                             saveContext()
+                            
+                            guard let photoData = newPhotoData else { return }
+                            
+                            self.backgroundImageThumb = Helper.getThumbnailForImage(
+                                imageData: photoData,
+                                size: CGSize(width: 40, height: 40)
+                            )
+                            
+                            self.backgroundImage = Helper.getThumbnailForImage(
+                                imageData: photoData,
+                                size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                            )
                         })
                     }
                     
@@ -74,11 +87,22 @@ struct IssueDetails: View {
                             .clipped()
                             .overlay(Image(uiImage: annotationImage ?? UIImage()).resizable().scaledToFit())
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                    if let annotationData = issue.photosArray[0].annotationData {
-                                        if let imgFromAnnotationData = UIImage(data: annotationData) {
-                                            annotationImage = imgFromAnnotationData
-                                        }
+                                if (backgroundImage == nil) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                        guard let imageData = backgroundImageData,
+                                              let bgImageFromData = Helper.getThumbnailForImage(
+                                                    imageData: imageData,
+                                                    size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+                                              )
+                                        else { return }
+                                        
+                                        backgroundImage = bgImageFromData
+                                        
+                                        guard let annotationData = issue.photosArray[0].annotationData,
+                                              let imgFromAnnotationData = UIImage(data: annotationData)
+                                        else { return }
+                                        
+                                        annotationImage = imgFromAnnotationData
                                     }
                                 }
                             }
@@ -99,6 +123,7 @@ struct IssueDetails: View {
                                     
                                     // TODO: what if deleting this photo from Core Data failed
                                     backgroundImage = UIImage()
+                                    backgroundImageThumb = UIImage()
                                     annotationImage = nil
                                     
                                 }

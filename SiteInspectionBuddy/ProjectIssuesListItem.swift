@@ -11,12 +11,16 @@ struct ProjectIssuesListItem: View {
     var issue: Issue
     @Binding var selectedIssueId: UUID?
     
-    @State var featuredImage: UIImage? = nil
-    var defaultFeaturedImage = UIImage()
+    @State var featuredImageData: Data? = nil
+    @State var featuredImageThumb: UIImage? = nil
     
     var body: some View {
         NavigationLink(
-            destination: IssueDetails(issue: issue, backgroundImage: $featuredImage),
+            destination: IssueDetails(
+                issue: issue,
+                backgroundImageData: $featuredImageData,
+                backgroundImageThumb: $featuredImageThumb
+            ),
             tag: issue.id!,
             selection: $selectedIssueId
         ) {
@@ -24,7 +28,7 @@ struct ProjectIssuesListItem: View {
                 self.selectedIssueId = issue.id
             }) {
                 HStack {
-                    Image(uiImage: featuredImage ?? defaultFeaturedImage)
+                    Image(uiImage: featuredImageThumb ?? UIImage())
                         .resizable()
                         .scaledToFill()
                         .frame(width: 40, height: 40, alignment: .center)
@@ -34,14 +38,17 @@ struct ProjectIssuesListItem: View {
             }
         }
         .onAppear {
-            if (featuredImage == nil) {
-                if (issue.photosArray.count > 0) {
-                    guard let photoData = issue.photosArray[0].photoData else { return }
-                    guard let updatedFeaturedImage = UIImage(data: photoData) else { return }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        featuredImage = updatedFeaturedImage
-                    }
+            if !issue.photosArray.isEmpty {
+                guard let currentPhotoData = issue.photosArray[0].photoData,
+                      let currentPhotoThumb = Helper.getThumbnailForImage(
+                        imageData: currentPhotoData,
+                        size: CGSize(width: 40, height: 40)
+                      )
+                else { return }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    featuredImageData = currentPhotoData
+                    featuredImageThumb = currentPhotoThumb
                 }
             }
         }
