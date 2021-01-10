@@ -39,16 +39,18 @@ struct ProjectIssuesListItem: View {
         }
         .onAppear {
             if !issue.photosArray.isEmpty {
-                guard let currentPhotoData = issue.photosArray[0].photoData,
-                      let currentPhotoThumb = Helper.getThumbnailForImage(
-                        imageData: currentPhotoData,
-                        size: CGSize(width: 40, height: 40)
-                      )
-                else { return }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    featuredImageData = currentPhotoData
-                    featuredImageThumb = currentPhotoThumb
+                DispatchQueue.global(qos: .userInitiated).async {
+                    guard let currentPhotoData = self.issue.photosArray[0].photoData,
+                          let currentPhotoThumb = Helper.getThumbnailForImage(
+                            imageData: currentPhotoData,
+                            size: CGSize(width: 40, height: 40)
+                          )
+                    else { return }
+
+                    DispatchQueue.main.async {
+                        self.featuredImageData = currentPhotoData
+                        self.featuredImageThumb = currentPhotoThumb
+                    }
                 }
             }
         }
