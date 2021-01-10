@@ -88,21 +88,25 @@ struct IssueDetails: View {
                             .overlay(Image(uiImage: annotationImage ?? UIImage()).resizable().scaledToFit())
                             .onAppear {
                                 if (backgroundImage == nil) {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                        guard let imageData = backgroundImageData,
+                                    DispatchQueue.global(qos: .userInitiated).async {
+                                        guard let imageData = self.backgroundImageData,
                                               let bgImageFromData = Helper.getThumbnailForImage(
                                                     imageData: imageData,
                                                     size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
                                               )
                                         else { return }
                                         
-                                        backgroundImage = bgImageFromData
+                                        DispatchQueue.main.async {
+                                            self.backgroundImage = bgImageFromData
+                                        }
                                         
-                                        guard let annotationData = issue.photosArray[0].annotationData,
+                                        guard let annotationData = self.issue.photosArray[0].annotationData,
                                               let imgFromAnnotationData = UIImage(data: annotationData)
                                         else { return }
                                         
-                                        annotationImage = imgFromAnnotationData
+                                        DispatchQueue.main.async {
+                                            self.annotationImage = imgFromAnnotationData
+                                        }
                                     }
                                 }
                             }
